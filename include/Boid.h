@@ -72,6 +72,10 @@ ngl::Vector Alignment(std::vector <Boid> m_boids);
 
 //------------------------------------------------------------------------------------------------
 
+ngl::Vector ObAvoid();
+
+bool checkCollisions();
+
 //ngl::Vector Flee(std::vector <Predator> m_predators);
 
 //ngl::Vector Hunt(std::vector <Boid> m_boids);
@@ -122,6 +126,8 @@ float y_rot;
 
 /// @brief The z rotation of the boids
 float z_rot;
+
+bool m_hit;
 
 /// @brief The start position of the ray
 ngl::Vector m_rayStart;

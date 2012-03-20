@@ -175,6 +175,7 @@ void Boid::update(std::vector <Boid> m_boids)
   ngl::Vector sep(this->Seperation(m_boids));
   ngl::Vector coh(this->Cohesion(m_boids));
   ngl::Vector ali(this->Alignment(m_boids));
+  ObAvoid();
 
   //ngl::Vector fle(this->Flee(m_boids));
 
@@ -430,3 +431,27 @@ ngl::Vector Boid::Hunt(std::vector <Boid> m_boids)
 }*/
 
 //Boid::~Boid();
+bool Boid::checkCollisions()
+{
+
+      if (m_rayEnd[0] > 50 || m_rayEnd[0] < -50  ||  m_rayEnd[1] > 50  || m_rayEnd[1] < -50 ||  m_rayEnd[2] > 50  || m_rayEnd[2] < -50)
+  {
+        return true;
+      }
+
+
+
+}
+
+
+ngl::Vector Boid::ObAvoid()
+{
+  if (checkCollisions() == true)
+
+  {
+
+    std::cout<<"HIT!"<<std::endl;
+    return (0,0,0);
+
+  }
+}
