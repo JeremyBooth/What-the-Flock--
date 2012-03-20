@@ -175,12 +175,13 @@ void Boid::update(std::vector <Boid> m_boids)
   ngl::Vector sep(this->Seperation(m_boids));
   ngl::Vector coh(this->Cohesion(m_boids));
   ngl::Vector ali(this->Alignment(m_boids));
-  ObAvoid();
+  ngl::Vector obs(this->ObAvoid());
 
   //ngl::Vector fle(this->Flee(m_boids));
 
   //Here i apply weightings to the steering forces to give priority to the more influencial ones.
   //fle = fle*100;
+  obs = obs*2;
   sep = sep*1.8;
   coh = coh*1;
   ali = ali*1;
@@ -196,6 +197,7 @@ void Boid::update(std::vector <Boid> m_boids)
   steering_direction = steering_direction + sep;
   steering_direction = steering_direction + coh;
   steering_direction = steering_direction + ali;
+  steering_direction = steering_direction + obs;
 
 
   //Here i produce a steering force by truncating the steering direction by the Maximum force
@@ -451,7 +453,19 @@ ngl::Vector Boid::ObAvoid()
   {
 
     std::cout<<"HIT!"<<std::endl;
-    return (0,0,0);
+
+    ngl::Vector steerforce;
+    steerforce = m_rayEnd-m_rayStart;
+    ngl::Vector Sum;
+
+    steerforce.normalize();
+    //l=steerforce.length()/l;
+    //l -= 1;
+    ngl::Vector s;
+    s = steerforce*-steerforce.length();
+    Sum +=s;
+
+    return Sum;
 
   }
 }
