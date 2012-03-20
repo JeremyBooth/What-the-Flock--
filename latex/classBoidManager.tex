@@ -1,0 +1,214 @@
+\hypertarget{classBoidManager}{
+\section{BoidManager Class Reference}
+\label{classBoidManager}\index{BoidManager@{BoidManager}}
+}
+
+
+This draws and updates the flock of boids, also there are ui connections to the boids.  
+
+
+
+
+{\ttfamily \#include $<$BoidManager.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBoidManager_a1cea425dbe15e5c69f572b4f9e9ff1b3}{BoidManager} (int \_\-numBoids, int \_\-numPredators)
+\begin{DoxyCompactList}\small\item\em ctor \end{DoxyCompactList}\item 
+\hypertarget{classBoidManager_acad25c7d13af5267a02e1073ff49ed09}{
+\hyperlink{classBoidManager_acad25c7d13af5267a02e1073ff49ed09}{$\sim$BoidManager} ()}
+\label{classBoidManager_acad25c7d13af5267a02e1073ff49ed09}
+
+\begin{DoxyCompactList}\small\item\em dtor \end{DoxyCompactList}\item 
+void \hyperlink{classBoidManager_a65897340e3e3d548ddac409dca8d94be}{draw} (ngl::TransformStack \&\_\-transformStack, ngl::Camera $\ast$\_\-cam, const std::string \&\_\-shader)
+\begin{DoxyCompactList}\small\item\em method to draw Boids \end{DoxyCompactList}\item 
+\hypertarget{classBoidManager_a18c66a4558bcb6e23fc3f0bc188ee39c}{
+ngl::Vector {\bfseries getBoids} ()}
+\label{classBoidManager_a18c66a4558bcb6e23fc3f0bc188ee39c}
+
+\item 
+\hypertarget{classBoidManager_a7b19899511f7fa9a721d0f6700b9492b}{
+ngl::Vector {\bfseries getPredators} ()}
+\label{classBoidManager_a7b19899511f7fa9a721d0f6700b9492b}
+
+\item 
+void \hyperlink{classBoidManager_a68e8db68ff75e9d85f6dcba93034d2cb}{setMass} (double m\_\-mass)
+\begin{DoxyCompactList}\small\item\em Sets the mass of the boids. \end{DoxyCompactList}\item 
+void \hyperlink{classBoidManager_af6fde83bd957cf0670a6e35224806f16}{setMaxSpeed} (double m\_\-maxS)
+\begin{DoxyCompactList}\small\item\em sets the maximum speed of the boids \end{DoxyCompactList}\item 
+void \hyperlink{classBoidManager_ab7bc38a47f17a7c3250d7ee9eaa5bd3f}{setMaxForce} (double m\_\-maxF)
+\begin{DoxyCompactList}\small\item\em sets the maximum force of th boids \end{DoxyCompactList}\item 
+void \hyperlink{classBoidManager_a23eb2208fa6240f9cdf1b13991be2bc5}{setSepDist} (double m\_\-sep)
+\begin{DoxyCompactList}\small\item\em sets the seperation distance \end{DoxyCompactList}\item 
+void \hyperlink{classBoidManager_a6cfe58d32d79898a5a0b1242533997bd}{setCohDist} (double m\_\-coh)
+\begin{DoxyCompactList}\small\item\em sets the cohesion distance \end{DoxyCompactList}\item 
+void \hyperlink{classBoidManager_af81a32c698d1691ef0702d82aa285dbd}{setAliDist} (double m\_\-ali)
+\begin{DoxyCompactList}\small\item\em sets the alignment distance \end{DoxyCompactList}\item 
+\hypertarget{classBoidManager_a7b78aab8b8ffa6b4c6c2553cc67c4e1e}{
+void \hyperlink{classBoidManager_a7b78aab8b8ffa6b4c6c2553cc67c4e1e}{addBoid} ()}
+\label{classBoidManager_a7b78aab8b8ffa6b4c6c2553cc67c4e1e}
+
+\begin{DoxyCompactList}\small\item\em adds a boid to the m\_\-boids array \end{DoxyCompactList}\item 
+\hypertarget{classBoidManager_a7357bfaa9a4fdce0ac929504f5b11cb9}{
+void \hyperlink{classBoidManager_a7357bfaa9a4fdce0ac929504f5b11cb9}{removeBoid} ()}
+\label{classBoidManager_a7357bfaa9a4fdce0ac929504f5b11cb9}
+
+\begin{DoxyCompactList}\small\item\em removes a boid from the m\_\-boids array \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This draws and updates the flock of boids, also there are ui connections to the boids. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classBoidManager_a1cea425dbe15e5c69f572b4f9e9ff1b3}{
+\index{BoidManager@{BoidManager}!BoidManager@{BoidManager}}
+\index{BoidManager@{BoidManager}!BoidManager@{BoidManager}}
+\subsubsection[{BoidManager}]{\setlength{\rightskip}{0pt plus 5cm}BoidManager::BoidManager (
+\begin{DoxyParamCaption}
+\item[{int}]{\_\-numBoids, }
+\item[{int}]{\_\-numPredators}
+\end{DoxyParamCaption}
+)}}
+\label{classBoidManager_a1cea425dbe15e5c69f572b4f9e9ff1b3}
+
+
+ctor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \_\-numBoids} & the number of Boids \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classBoidManager_a65897340e3e3d548ddac409dca8d94be}{
+\index{BoidManager@{BoidManager}!draw@{draw}}
+\index{draw@{draw}!BoidManager@{BoidManager}}
+\subsubsection[{draw}]{\setlength{\rightskip}{0pt plus 5cm}void BoidManager::draw (
+\begin{DoxyParamCaption}
+\item[{ngl::TransformStack \&}]{\_\-transformStack, }
+\item[{ngl::Camera $\ast$}]{\_\-cam, }
+\item[{const std::string \&}]{\_\-shader}
+\end{DoxyParamCaption}
+)}}
+\label{classBoidManager_a65897340e3e3d548ddac409dca8d94be}
+
+
+method to draw Boids 
+
+the transform stack \hypertarget{classBoidManager_af81a32c698d1691ef0702d82aa285dbd}{
+\index{BoidManager@{BoidManager}!setAliDist@{setAliDist}}
+\index{setAliDist@{setAliDist}!BoidManager@{BoidManager}}
+\subsubsection[{setAliDist}]{\setlength{\rightskip}{0pt plus 5cm}void BoidManager::setAliDist (
+\begin{DoxyParamCaption}
+\item[{double}]{m\_\-ali}
+\end{DoxyParamCaption}
+)}}
+\label{classBoidManager_af81a32c698d1691ef0702d82aa285dbd}
+
+
+sets the alignment distance 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em the} & new alignment distance \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBoidManager_a6cfe58d32d79898a5a0b1242533997bd}{
+\index{BoidManager@{BoidManager}!setCohDist@{setCohDist}}
+\index{setCohDist@{setCohDist}!BoidManager@{BoidManager}}
+\subsubsection[{setCohDist}]{\setlength{\rightskip}{0pt plus 5cm}void BoidManager::setCohDist (
+\begin{DoxyParamCaption}
+\item[{double}]{m\_\-coh}
+\end{DoxyParamCaption}
+)}}
+\label{classBoidManager_a6cfe58d32d79898a5a0b1242533997bd}
+
+
+sets the cohesion distance 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em the} & new cohesion distance \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBoidManager_a68e8db68ff75e9d85f6dcba93034d2cb}{
+\index{BoidManager@{BoidManager}!setMass@{setMass}}
+\index{setMass@{setMass}!BoidManager@{BoidManager}}
+\subsubsection[{setMass}]{\setlength{\rightskip}{0pt plus 5cm}void BoidManager::setMass (
+\begin{DoxyParamCaption}
+\item[{double}]{m\_\-mass}
+\end{DoxyParamCaption}
+)}}
+\label{classBoidManager_a68e8db68ff75e9d85f6dcba93034d2cb}
+
+
+Sets the mass of the boids. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em the} & new mass \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBoidManager_ab7bc38a47f17a7c3250d7ee9eaa5bd3f}{
+\index{BoidManager@{BoidManager}!setMaxForce@{setMaxForce}}
+\index{setMaxForce@{setMaxForce}!BoidManager@{BoidManager}}
+\subsubsection[{setMaxForce}]{\setlength{\rightskip}{0pt plus 5cm}void BoidManager::setMaxForce (
+\begin{DoxyParamCaption}
+\item[{double}]{m\_\-maxF}
+\end{DoxyParamCaption}
+)}}
+\label{classBoidManager_ab7bc38a47f17a7c3250d7ee9eaa5bd3f}
+
+
+sets the maximum force of th boids 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em the} & new maximum force \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBoidManager_af6fde83bd957cf0670a6e35224806f16}{
+\index{BoidManager@{BoidManager}!setMaxSpeed@{setMaxSpeed}}
+\index{setMaxSpeed@{setMaxSpeed}!BoidManager@{BoidManager}}
+\subsubsection[{setMaxSpeed}]{\setlength{\rightskip}{0pt plus 5cm}void BoidManager::setMaxSpeed (
+\begin{DoxyParamCaption}
+\item[{double}]{m\_\-maxS}
+\end{DoxyParamCaption}
+)}}
+\label{classBoidManager_af6fde83bd957cf0670a6e35224806f16}
+
+
+sets the maximum speed of the boids 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em the} & new maximum Speed \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBoidManager_a23eb2208fa6240f9cdf1b13991be2bc5}{
+\index{BoidManager@{BoidManager}!setSepDist@{setSepDist}}
+\index{setSepDist@{setSepDist}!BoidManager@{BoidManager}}
+\subsubsection[{setSepDist}]{\setlength{\rightskip}{0pt plus 5cm}void BoidManager::setSepDist (
+\begin{DoxyParamCaption}
+\item[{double}]{m\_\-sep}
+\end{DoxyParamCaption}
+)}}
+\label{classBoidManager_a23eb2208fa6240f9cdf1b13991be2bc5}
+
+
+sets the seperation distance 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em the} & new seperation distance \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{BoidManager_8h}{BoidManager.h}\item 
+src/BoidManager.cpp\end{DoxyCompactItemize}

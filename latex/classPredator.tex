@@ -1,0 +1,130 @@
+\hypertarget{classPredator}{
+\section{Predator Class Reference}
+\label{classPredator}\index{Predator@{Predator}}
+}
+
+
+\hyperlink{classPredator}{Predator} properties and drawing.  
+
+
+
+
+{\ttfamily \#include $<$Predator.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classPredator_af60206a2ffdf0353d6043f8b5d99787f}{Predator} (const ngl::Vector \&\_\-pos, const ngl::Vector \&\_\-vel, ngl::Obj $\ast$\_\-mesh)
+\begin{DoxyCompactList}\small\item\em ctor \end{DoxyCompactList}\item 
+\hypertarget{classPredator_a5d62e3c7773b830e468a8a434de1a52c}{
+void {\bfseries loadMatricesToShader} (ngl::TransformStack \&\_\-tx, ngl::Camera $\ast$\_\-cam) const }
+\label{classPredator_a5d62e3c7773b830e468a8a434de1a52c}
+
+\item 
+void \hyperlink{classPredator_ad719b4a294837914fd89927a610627ca}{draw} (ngl::TransformStack \&\_\-transformStack, ngl::Camera $\ast$\_\-cam, const std::string \&\_\-shader)
+\begin{DoxyCompactList}\small\item\em draw method \end{DoxyCompactList}\item 
+void \hyperlink{classPredator_ae9a1dc6e8c98a3301a284d507df0e989}{update} (std::vector$<$ \hyperlink{classBoid}{Boid} $>$ m\_\-boids)
+\begin{DoxyCompactList}\small\item\em update method \end{DoxyCompactList}\item 
+\hypertarget{classPredator_a76df0660d23c62918d1123a067795bf7}{
+ngl::Vector \hyperlink{classPredator_a76df0660d23c62918d1123a067795bf7}{Track} (std::vector$<$ \hyperlink{classBoid}{Boid} $>$ m\_\-boids)}
+\label{classPredator_a76df0660d23c62918d1123a067795bf7}
+
+\begin{DoxyCompactList}\small\item\em center function to make the boids flock to the center \end{DoxyCompactList}\item 
+ngl::Vector \hyperlink{classPredator_a93fb6dc551ad71725e79c6ba1275ab02}{BoundingBox} ()
+\begin{DoxyCompactList}\small\item\em draw method \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPredator_ac0d599192fde465d8ff881ab60cc83bd}{
+double {\bfseries m\_\-mass}}
+\label{classPredator_ac0d599192fde465d8ff881ab60cc83bd}
+
+\item 
+\hypertarget{classPredator_ac35f65a108aa9bc5f0607b031cacf1de}{
+std::vector$<$ \hyperlink{classBoid}{Boid} $>$ $\ast$ {\bfseries m\_\-boids}}
+\label{classPredator_ac35f65a108aa9bc5f0607b031cacf1de}
+
+\item 
+\hypertarget{classPredator_a3b009f7e59d31570772e26986d330aa3}{
+ngl::Vector \hyperlink{classPredator_a3b009f7e59d31570772e26986d330aa3}{m\_\-pos}}
+\label{classPredator_a3b009f7e59d31570772e26986d330aa3}
+
+\begin{DoxyCompactList}\small\item\em the position of the predator \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classPredator}{Predator} properties and drawing. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classPredator_af60206a2ffdf0353d6043f8b5d99787f}{
+\index{Predator@{Predator}!Predator@{Predator}}
+\index{Predator@{Predator}!Predator@{Predator}}
+\subsubsection[{Predator}]{\setlength{\rightskip}{0pt plus 5cm}Predator::Predator (
+\begin{DoxyParamCaption}
+\item[{const ngl::Vector \&}]{\_\-pos, }
+\item[{const ngl::Vector \&}]{\_\-vel, }
+\item[{ngl::Obj $\ast$}]{\_\-mesh}
+\end{DoxyParamCaption}
+)}}
+\label{classPredator_af60206a2ffdf0353d6043f8b5d99787f}
+
+
+ctor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \_\-pos} & the position of the rock \_\-vel the velocity of the rock \\
+\hline
+{\em \_\-fname} & the name of mesh to load \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classPredator_a93fb6dc551ad71725e79c6ba1275ab02}{
+\index{Predator@{Predator}!BoundingBox@{BoundingBox}}
+\index{BoundingBox@{BoundingBox}!Predator@{Predator}}
+\subsubsection[{BoundingBox}]{\setlength{\rightskip}{0pt plus 5cm}ngl::Vector Predator::BoundingBox (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classPredator_a93fb6dc551ad71725e79c6ba1275ab02}
+
+
+draw method 
+
+pass in the TransformStack for the shader (should have all the tx needed) \hypertarget{classPredator_ad719b4a294837914fd89927a610627ca}{
+\index{Predator@{Predator}!draw@{draw}}
+\index{draw@{draw}!Predator@{Predator}}
+\subsubsection[{draw}]{\setlength{\rightskip}{0pt plus 5cm}void Predator::draw (
+\begin{DoxyParamCaption}
+\item[{ngl::TransformStack \&}]{\_\-transformStack, }
+\item[{ngl::Camera $\ast$}]{\_\-cam, }
+\item[{const std::string \&}]{\_\-shader}
+\end{DoxyParamCaption}
+)}}
+\label{classPredator_ad719b4a294837914fd89927a610627ca}
+
+
+draw method 
+
+pass in the TransformStack defined in \hyperlink{classGLWindow}{GLWindow} for the shader \hypertarget{classPredator_ae9a1dc6e8c98a3301a284d507df0e989}{
+\index{Predator@{Predator}!update@{update}}
+\index{update@{update}!Predator@{Predator}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}void Predator::update (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ {\bf Boid} $>$}]{m\_\-boids}
+\end{DoxyParamCaption}
+)}}
+\label{classPredator_ae9a1dc6e8c98a3301a284d507df0e989}
+
+
+update method 
+
+Update all the boids each frame/simulation step. 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{Predator_8h}{Predator.h}\item 
+src/Predator.cpp\end{DoxyCompactItemize}

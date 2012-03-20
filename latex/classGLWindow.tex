@@ -1,0 +1,289 @@
+\hypertarget{classGLWindow}{
+\section{GLWindow Class Reference}
+\label{classGLWindow}\index{GLWindow@{GLWindow}}
+}
+
+
+The main glwindow widget and all drawing elements are put in this file.  
+
+
+
+
+{\ttfamily \#include $<$GLWindow.h$>$}
+
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGLWindow_a12c3d0e90d6cc3216cb99b0479840ad8}{toggleWireframe} (bool \_\-mode)
+\begin{DoxyCompactList}\small\item\em a slot to toggle wireframe mode \end{DoxyCompactList}\item 
+void \hyperlink{classGLWindow_af440070307e4a34550ee7772708e3a99}{setMass} (double \_\-m)
+\begin{DoxyCompactList}\small\item\em a slot to change the mass of the boid \end{DoxyCompactList}\item 
+void \hyperlink{classGLWindow_a4e1f5f46a23a6c489a173c70af3008ef}{setMaxSpeed} (double \_\-m)
+\begin{DoxyCompactList}\small\item\em a slot to change the Maximum speed value \end{DoxyCompactList}\item 
+void \hyperlink{classGLWindow_a0ae8e2d08671a68c99160aa53a6aa9f1}{setMaxForce} (double \_\-m)
+\begin{DoxyCompactList}\small\item\em a slot to change the Maximum force value \end{DoxyCompactList}\item 
+void \hyperlink{classGLWindow_a1e3533b5037b96ad52a47508354bc196}{setSepDist} (double \_\-m)
+\begin{DoxyCompactList}\small\item\em a slot change spin box value for the seperation distance \end{DoxyCompactList}\item 
+void \hyperlink{classGLWindow_ab8e382574f3cb42848feb8243ea43046}{setCohDist} (double \_\-m)
+\begin{DoxyCompactList}\small\item\em a slot change spin box value for the cohesion distance \end{DoxyCompactList}\item 
+void \hyperlink{classGLWindow_a822698ed274357b125b86b96437bb261}{setAliDist} (double \_\-m)
+\begin{DoxyCompactList}\small\item\em a slot change spin box value for the alignment distance \end{DoxyCompactList}\item 
+\hypertarget{classGLWindow_a092b2f8ed729523621fa725c77ce7ac7}{
+void \hyperlink{classGLWindow_a092b2f8ed729523621fa725c77ce7ac7}{removeBoid} ()}
+\label{classGLWindow_a092b2f8ed729523621fa725c77ce7ac7}
+
+\begin{DoxyCompactList}\small\item\em a slot to remove a boid from the m\_\-boids array when the button is pressed \end{DoxyCompactList}\item 
+\hypertarget{classGLWindow_ae09ab83e83150de75ffb14b8344a4de1}{
+void \hyperlink{classGLWindow_ae09ab83e83150de75ffb14b8344a4de1}{addBoid} ()}
+\label{classGLWindow_ae09ab83e83150de75ffb14b8344a4de1}
+
+\begin{DoxyCompactList}\small\item\em a slot to add a boid from the m\_\-boids array when the button is pressed \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGLWindow_a8dfc33113be0a86a53ddbea054f75292}{GLWindow} (QWidget $\ast$\_\-parent)
+\begin{DoxyCompactList}\small\item\em Constructor for \hyperlink{classGLWindow}{GLWindow}. \end{DoxyCompactList}\item 
+\hypertarget{classGLWindow_a2eeaea2148f4f72344edd6d1bac9759b}{
+\hyperlink{classGLWindow_a2eeaea2148f4f72344edd6d1bac9759b}{$\sim$GLWindow} ()}
+\label{classGLWindow_a2eeaea2148f4f72344edd6d1bac9759b}
+
+\begin{DoxyCompactList}\small\item\em dtor add any code here to tidy up \end{DoxyCompactList}\item 
+void \hyperlink{classGLWindow_a72623f17bba6e8b6448efb0572bbdd00}{processKey} (QKeyEvent $\ast$\_\-event)
+\begin{DoxyCompactList}\small\item\em processKey passed from the main window class \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classGLWindow_ab78209ce50dd6820686aa05fc242eb7a}{
+void {\bfseries loadMatricesToShader} (ngl::TransformStack \&\_\-tx)}
+\label{classGLWindow_ab78209ce50dd6820686aa05fc242eb7a}
+
+\item 
+\hypertarget{classGLWindow_a508372a067e963cdf98d1ffd4efffbc5}{
+void {\bfseries loadMatricesToColourShader} (ngl::TransformStack \&\_\-tx)}
+\label{classGLWindow_a508372a067e963cdf98d1ffd4efffbc5}
+
+\item 
+void \hyperlink{classGLWindow_a39e39761cd7323806917a217cc7caea5}{initializeGL} ()
+\begin{DoxyCompactList}\small\item\em The following methods must be implimented in the sub class this is called when the window is created. \end{DoxyCompactList}\item 
+void \hyperlink{classGLWindow_abe57c0f40e59cba4c98759121e22eb47}{resizeGL} (const int \_\-w, const int \_\-h)
+\begin{DoxyCompactList}\small\item\em this is called whenever the window is re-\/sized \end{DoxyCompactList}\item 
+\hypertarget{classGLWindow_a9bd2503dd5f812c10a9481f22ecd3403}{
+void \hyperlink{classGLWindow_a9bd2503dd5f812c10a9481f22ecd3403}{paintGL} ()}
+\label{classGLWindow_a9bd2503dd5f812c10a9481f22ecd3403}
+
+\begin{DoxyCompactList}\small\item\em this is the main gl drawing routine which is called whenever the window needs to be re-\/drawn \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The main glwindow widget and all drawing elements are put in this file. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classGLWindow_a8dfc33113be0a86a53ddbea054f75292}{
+\index{GLWindow@{GLWindow}!GLWindow@{GLWindow}}
+\index{GLWindow@{GLWindow}!GLWindow@{GLWindow}}
+\subsubsection[{GLWindow}]{\setlength{\rightskip}{0pt plus 5cm}GLWindow::GLWindow (
+\begin{DoxyParamCaption}
+\item[{QWidget $\ast$}]{\_\-parent}
+\end{DoxyParamCaption}
+)}}
+\label{classGLWindow_a8dfc33113be0a86a53ddbea054f75292}
+
+
+Constructor for \hyperlink{classGLWindow}{GLWindow}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em parent} & the parent window to create the GL context in \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classGLWindow_a39e39761cd7323806917a217cc7caea5}{
+\index{GLWindow@{GLWindow}!initializeGL@{initializeGL}}
+\index{initializeGL@{initializeGL}!GLWindow@{GLWindow}}
+\subsubsection[{initializeGL}]{\setlength{\rightskip}{0pt plus 5cm}void GLWindow::initializeGL (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classGLWindow_a39e39761cd7323806917a217cc7caea5}
+
+
+The following methods must be implimented in the sub class this is called when the window is created. 
+
+
+
+now for the colour shader 
+
+\hypertarget{classGLWindow_a72623f17bba6e8b6448efb0572bbdd00}{
+\index{GLWindow@{GLWindow}!processKey@{processKey}}
+\index{processKey@{processKey}!GLWindow@{GLWindow}}
+\subsubsection[{processKey}]{\setlength{\rightskip}{0pt plus 5cm}void GLWindow::processKey (
+\begin{DoxyParamCaption}
+\item[{QKeyEvent $\ast$}]{\_\-event}
+\end{DoxyParamCaption}
+)}}
+\label{classGLWindow_a72623f17bba6e8b6448efb0572bbdd00}
+
+
+processKey passed from the main window class 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$\_\-event} & a pointer to the QKeyEvent passed from main window class \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGLWindow_abe57c0f40e59cba4c98759121e22eb47}{
+\index{GLWindow@{GLWindow}!resizeGL@{resizeGL}}
+\index{resizeGL@{resizeGL}!GLWindow@{GLWindow}}
+\subsubsection[{resizeGL}]{\setlength{\rightskip}{0pt plus 5cm}void GLWindow::resizeGL (
+\begin{DoxyParamCaption}
+\item[{const int}]{\_\-w, }
+\item[{const int}]{\_\-h}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classGLWindow_abe57c0f40e59cba4c98759121e22eb47}
+
+
+this is called whenever the window is re-\/sized 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \_\-w} & the width of the resized window \\
+\hline
+\mbox{\tt in}  & {\em \_\-h} & the height of the resized window \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGLWindow_a822698ed274357b125b86b96437bb261}{
+\index{GLWindow@{GLWindow}!setAliDist@{setAliDist}}
+\index{setAliDist@{setAliDist}!GLWindow@{GLWindow}}
+\subsubsection[{setAliDist}]{\setlength{\rightskip}{0pt plus 5cm}void GLWindow::setAliDist (
+\begin{DoxyParamCaption}
+\item[{double}]{\_\-m}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classGLWindow_a822698ed274357b125b86b96437bb261}
+
+
+a slot change spin box value for the alignment distance 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \_\-m} & the mode passed from corresponding spin box \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGLWindow_ab8e382574f3cb42848feb8243ea43046}{
+\index{GLWindow@{GLWindow}!setCohDist@{setCohDist}}
+\index{setCohDist@{setCohDist}!GLWindow@{GLWindow}}
+\subsubsection[{setCohDist}]{\setlength{\rightskip}{0pt plus 5cm}void GLWindow::setCohDist (
+\begin{DoxyParamCaption}
+\item[{double}]{\_\-m}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classGLWindow_ab8e382574f3cb42848feb8243ea43046}
+
+
+a slot change spin box value for the cohesion distance 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \_\-m} & the mode passed from corresponding spin box \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGLWindow_af440070307e4a34550ee7772708e3a99}{
+\index{GLWindow@{GLWindow}!setMass@{setMass}}
+\index{setMass@{setMass}!GLWindow@{GLWindow}}
+\subsubsection[{setMass}]{\setlength{\rightskip}{0pt plus 5cm}void GLWindow::setMass (
+\begin{DoxyParamCaption}
+\item[{double}]{\_\-m}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classGLWindow_af440070307e4a34550ee7772708e3a99}
+
+
+a slot to change the mass of the boid 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \_\-m} & the mode passed from corresponding spin box \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGLWindow_a0ae8e2d08671a68c99160aa53a6aa9f1}{
+\index{GLWindow@{GLWindow}!setMaxForce@{setMaxForce}}
+\index{setMaxForce@{setMaxForce}!GLWindow@{GLWindow}}
+\subsubsection[{setMaxForce}]{\setlength{\rightskip}{0pt plus 5cm}void GLWindow::setMaxForce (
+\begin{DoxyParamCaption}
+\item[{double}]{\_\-m}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classGLWindow_a0ae8e2d08671a68c99160aa53a6aa9f1}
+
+
+a slot to change the Maximum force value 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \_\-m} & the mode passed from corresponding spin box \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGLWindow_a4e1f5f46a23a6c489a173c70af3008ef}{
+\index{GLWindow@{GLWindow}!setMaxSpeed@{setMaxSpeed}}
+\index{setMaxSpeed@{setMaxSpeed}!GLWindow@{GLWindow}}
+\subsubsection[{setMaxSpeed}]{\setlength{\rightskip}{0pt plus 5cm}void GLWindow::setMaxSpeed (
+\begin{DoxyParamCaption}
+\item[{double}]{\_\-m}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classGLWindow_a4e1f5f46a23a6c489a173c70af3008ef}
+
+
+a slot to change the Maximum speed value 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \_\-m} & the mode passed from corresponding spin box \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGLWindow_a1e3533b5037b96ad52a47508354bc196}{
+\index{GLWindow@{GLWindow}!setSepDist@{setSepDist}}
+\index{setSepDist@{setSepDist}!GLWindow@{GLWindow}}
+\subsubsection[{setSepDist}]{\setlength{\rightskip}{0pt plus 5cm}void GLWindow::setSepDist (
+\begin{DoxyParamCaption}
+\item[{double}]{\_\-m}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classGLWindow_a1e3533b5037b96ad52a47508354bc196}
+
+
+a slot change spin box value for the seperation distance 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \_\-m} & the mode passed from corresponding spin box \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGLWindow_a12c3d0e90d6cc3216cb99b0479840ad8}{
+\index{GLWindow@{GLWindow}!toggleWireframe@{toggleWireframe}}
+\index{toggleWireframe@{toggleWireframe}!GLWindow@{GLWindow}}
+\subsubsection[{toggleWireframe}]{\setlength{\rightskip}{0pt plus 5cm}void GLWindow::toggleWireframe (
+\begin{DoxyParamCaption}
+\item[{bool}]{\_\-mode}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classGLWindow_a12c3d0e90d6cc3216cb99b0479840ad8}
+
+
+a slot to toggle wireframe mode 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \_\-mode} & the mode passed from toggle button \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{GLWindow_8h}{GLWindow.h}\item 
+src/GLWindow.cpp\end{DoxyCompactItemize}

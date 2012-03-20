@@ -1,0 +1,175 @@
+\hypertarget{classBoid}{
+\section{Boid Class Reference}
+\label{classBoid}\index{Boid@{Boid}}
+}
+
+
+boids properties and drawing  
+
+
+
+
+{\ttfamily \#include $<$Boid.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBoid_ae6fcb04ea6225bcd5e37097b69ed0ef0}{Boid} (const ngl::Vector \&\_\-pos, const ngl::Vector \&\_\-vel, ngl::Obj $\ast$\_\-mesh)
+\begin{DoxyCompactList}\small\item\em ctor \end{DoxyCompactList}\item 
+\hypertarget{classBoid_aa385844611134b967c38e60a870e5109}{
+void {\bfseries loadMatricesToShader} (ngl::TransformStack \&\_\-tx, ngl::Camera $\ast$\_\-cam) const }
+\label{classBoid_aa385844611134b967c38e60a870e5109}
+
+\item 
+void \hyperlink{classBoid_a62b07b2a06fdca9061d05b3d6d3122f9}{draw} (ngl::TransformStack \&\_\-transformStack, ngl::Camera $\ast$\_\-cam, const std::string \&\_\-shader)
+\begin{DoxyCompactList}\small\item\em draw method \end{DoxyCompactList}\item 
+void \hyperlink{classBoid_a302007545e82cea5012f2e653e660232}{update} (std::vector$<$ \hyperlink{classBoid}{Boid} $>$ m\_\-boids)
+\begin{DoxyCompactList}\small\item\em update method \end{DoxyCompactList}\item 
+\hypertarget{classBoid_ab88f30d00599ecbe17403e60518ab3b5}{
+ngl::Vector \hyperlink{classBoid_ab88f30d00599ecbe17403e60518ab3b5}{Seperation} (std::vector$<$ \hyperlink{classBoid}{Boid} $>$ m\_\-boids)}
+\label{classBoid_ab88f30d00599ecbe17403e60518ab3b5}
+
+\begin{DoxyCompactList}\small\item\em Seperation function that keeps the boids away from each other. \end{DoxyCompactList}\item 
+\hypertarget{classBoid_a2be8f19fde4d038acb147d11fc3a679b}{
+ngl::Vector \hyperlink{classBoid_a2be8f19fde4d038acb147d11fc3a679b}{Cohesion} (std::vector$<$ \hyperlink{classBoid}{Boid} $>$ m\_\-boids)}
+\label{classBoid_a2be8f19fde4d038acb147d11fc3a679b}
+
+\begin{DoxyCompactList}\small\item\em Cohesion function that keeps there average position to the center of the flock. \end{DoxyCompactList}\item 
+\hypertarget{classBoid_a53c521d38a0df790cdaa7b29d4c80dd2}{
+ngl::Vector \hyperlink{classBoid_a53c521d38a0df790cdaa7b29d4c80dd2}{Alignment} (std::vector$<$ \hyperlink{classBoid}{Boid} $>$ m\_\-boids)}
+\label{classBoid_a53c521d38a0df790cdaa7b29d4c80dd2}
+
+\begin{DoxyCompactList}\small\item\em Alignment function that aligns the velocities of nerby flockmates. \end{DoxyCompactList}\item 
+ngl::Vector \hyperlink{classBoid_a1c1b01368b2a993f6ac60d4bc9297058}{BoundingBox} (std::vector$<$ \hyperlink{classBoid}{Boid} $>$ m\_\-boids)
+\begin{DoxyCompactList}\small\item\em draw method \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classBoid_aa67dfd45aec40cafb362fdf20c86662f}{
+ngl::Vector \hyperlink{classBoid_aa67dfd45aec40cafb362fdf20c86662f}{m\_\-tar}}
+\label{classBoid_aa67dfd45aec40cafb362fdf20c86662f}
+
+\begin{DoxyCompactList}\small\item\em when we press colour the target changes \end{DoxyCompactList}\item 
+\hypertarget{classBoid_a15d5b1c78243f89cab7d9267b14d6ca9}{
+double \hyperlink{classBoid_a15d5b1c78243f89cab7d9267b14d6ca9}{m\_\-sep}}
+\label{classBoid_a15d5b1c78243f89cab7d9267b14d6ca9}
+
+\begin{DoxyCompactList}\small\item\em the seperation affect distance \end{DoxyCompactList}\item 
+\hypertarget{classBoid_a4c3a20aae303e918b32d0fce5ce099ea}{
+double \hyperlink{classBoid_a4c3a20aae303e918b32d0fce5ce099ea}{m\_\-coh}}
+\label{classBoid_a4c3a20aae303e918b32d0fce5ce099ea}
+
+\begin{DoxyCompactList}\small\item\em the seperation affect distance \end{DoxyCompactList}\item 
+\hypertarget{classBoid_abe5e035909aa3ab0f66bfd692a368f3e}{
+double \hyperlink{classBoid_abe5e035909aa3ab0f66bfd692a368f3e}{m\_\-ali}}
+\label{classBoid_abe5e035909aa3ab0f66bfd692a368f3e}
+
+\begin{DoxyCompactList}\small\item\em the seperation affect distance \end{DoxyCompactList}\item 
+\hypertarget{classBoid_a2509ebc1070253efaa93cfc015b0e39b}{
+double \hyperlink{classBoid_a2509ebc1070253efaa93cfc015b0e39b}{m\_\-maxF}}
+\label{classBoid_a2509ebc1070253efaa93cfc015b0e39b}
+
+\begin{DoxyCompactList}\small\item\em float for the maximum force of the boid \end{DoxyCompactList}\item 
+\hypertarget{classBoid_af3b81b715ad8a748a3fa174003d76714}{
+double \hyperlink{classBoid_af3b81b715ad8a748a3fa174003d76714}{m\_\-maxS}}
+\label{classBoid_af3b81b715ad8a748a3fa174003d76714}
+
+\begin{DoxyCompactList}\small\item\em float for the maximum speed of the boid \end{DoxyCompactList}\item 
+\hypertarget{classBoid_ab00080b05849af3a93796d8a37e38897}{
+double \hyperlink{classBoid_ab00080b05849af3a93796d8a37e38897}{m\_\-mass}}
+\label{classBoid_ab00080b05849af3a93796d8a37e38897}
+
+\begin{DoxyCompactList}\small\item\em float for the maximum speed of the boid \end{DoxyCompactList}\item 
+\hypertarget{classBoid_aadcf9cea504eb83c47a986a40803253c}{
+ngl::Vector \hyperlink{classBoid_aadcf9cea504eb83c47a986a40803253c}{m\_\-pos}}
+\label{classBoid_aadcf9cea504eb83c47a986a40803253c}
+
+\begin{DoxyCompactList}\small\item\em the position of the Rock \end{DoxyCompactList}\item 
+\hypertarget{classBoid_a3107e1d62f285edd11944bf1edf57f3f}{
+ngl::Vector \hyperlink{classBoid_a3107e1d62f285edd11944bf1edf57f3f}{m\_\-vel}}
+\label{classBoid_a3107e1d62f285edd11944bf1edf57f3f}
+
+\begin{DoxyCompactList}\small\item\em the velocity of the boid \end{DoxyCompactList}\item 
+\hypertarget{classBoid_a7afed4c0a8d95c811e8bdf58dc82912e}{
+ngl::Vector \hyperlink{classBoid_a7afed4c0a8d95c811e8bdf58dc82912e}{m\_\-acc}}
+\label{classBoid_a7afed4c0a8d95c811e8bdf58dc82912e}
+
+\begin{DoxyCompactList}\small\item\em the acceleration of the boid \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+boids properties and drawing 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classBoid_ae6fcb04ea6225bcd5e37097b69ed0ef0}{
+\index{Boid@{Boid}!Boid@{Boid}}
+\index{Boid@{Boid}!Boid@{Boid}}
+\subsubsection[{Boid}]{\setlength{\rightskip}{0pt plus 5cm}Boid::Boid (
+\begin{DoxyParamCaption}
+\item[{const ngl::Vector \&}]{\_\-pos, }
+\item[{const ngl::Vector \&}]{\_\-vel, }
+\item[{ngl::Obj $\ast$}]{\_\-mesh}
+\end{DoxyParamCaption}
+)}}
+\label{classBoid_ae6fcb04ea6225bcd5e37097b69ed0ef0}
+
+
+ctor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \_\-pos} & the position of the rock \_\-vel the velocity of the rock \\
+\hline
+{\em \_\-fname} & the name of mesh to load \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classBoid_a1c1b01368b2a993f6ac60d4bc9297058}{
+\index{Boid@{Boid}!BoundingBox@{BoundingBox}}
+\index{BoundingBox@{BoundingBox}!Boid@{Boid}}
+\subsubsection[{BoundingBox}]{\setlength{\rightskip}{0pt plus 5cm}ngl::Vector Boid::BoundingBox (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ {\bf Boid} $>$}]{m\_\-boids}
+\end{DoxyParamCaption}
+)}}
+\label{classBoid_a1c1b01368b2a993f6ac60d4bc9297058}
+
+
+draw method 
+
+pass in the TransformStack for the shader (should have all the tx needed) \hypertarget{classBoid_a62b07b2a06fdca9061d05b3d6d3122f9}{
+\index{Boid@{Boid}!draw@{draw}}
+\index{draw@{draw}!Boid@{Boid}}
+\subsubsection[{draw}]{\setlength{\rightskip}{0pt plus 5cm}void Boid::draw (
+\begin{DoxyParamCaption}
+\item[{ngl::TransformStack \&}]{\_\-transformStack, }
+\item[{ngl::Camera $\ast$}]{\_\-cam, }
+\item[{const std::string \&}]{\_\-shader}
+\end{DoxyParamCaption}
+)}}
+\label{classBoid_a62b07b2a06fdca9061d05b3d6d3122f9}
+
+
+draw method 
+
+pass in the TransformStack defined in \hyperlink{classGLWindow}{GLWindow} for the shader \hypertarget{classBoid_a302007545e82cea5012f2e653e660232}{
+\index{Boid@{Boid}!update@{update}}
+\index{update@{update}!Boid@{Boid}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}void Boid::update (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ {\bf Boid} $>$}]{m\_\-boids}
+\end{DoxyParamCaption}
+)}}
+\label{classBoid_a302007545e82cea5012f2e653e660232}
+
+
+update method 
+
+Update all the boids each frame/simulation step. 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{Boid_8h}{Boid.h}\item 
+src/\hyperlink{Boid_8cpp}{Boid.cpp}\end{DoxyCompactItemize}
