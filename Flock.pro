@@ -22,7 +22,8 @@ SOURCES += \
     src/Predator.cpp \
     src/Scene.cpp \
     src/Lattice.cpp \
-    src/Export.cpp
+    src/Export.cpp \
+    src/Goal.cpp
 
 HEADERS += \
     include/MainWindow.h \
@@ -32,7 +33,8 @@ HEADERS += \
     include/Predator.h \
     include/Scene.h \
     include/Lattice.h \
-    include/Export.h
+    include/Export.h \
+    include/Goal.h
 
 OTHER_FILES+= shaders/Fragment.fs \
               shaders/Vertex.vs \

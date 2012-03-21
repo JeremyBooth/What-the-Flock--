@@ -130,6 +130,7 @@ void Boid::draw( ngl::TransformStack &_tx,
 
 
       m_Yrot = atan2(m_vel.m_x, m_vel.m_z) * deg;
+      //m_Yrot = atan2(-m_vel.m_z, m_vel.m_x) * deg;
 
       m_Zrot = asin(m_vel.m_y / m_vel.length())* deg;
 
@@ -175,13 +176,11 @@ void Boid::update(std::vector <Boid> m_boids)
   ngl::Vector sep(this->Seperation(m_boids));
   ngl::Vector coh(this->Cohesion(m_boids));
   ngl::Vector ali(this->Alignment(m_boids));
-  ngl::Vector obs(this->ObAvoid());
 
   //ngl::Vector fle(this->Flee(m_boids));
 
   //Here i apply weightings to the steering forces to give priority to the more influencial ones.
   //fle = fle*100;
-  obs = obs*2;
   sep = sep*1.8;
   coh = coh*1;
   ali = ali*1;
@@ -197,7 +196,6 @@ void Boid::update(std::vector <Boid> m_boids)
   steering_direction = steering_direction + sep;
   steering_direction = steering_direction + coh;
   steering_direction = steering_direction + ali;
-  steering_direction = steering_direction + obs;
 
 
   //Here i produce a steering force by truncating the steering direction by the Maximum force
@@ -433,39 +431,3 @@ ngl::Vector Boid::Hunt(std::vector <Boid> m_boids)
 }*/
 
 //Boid::~Boid();
-bool Boid::checkCollisions()
-{
-
-      if (m_rayEnd[0] > 50 || m_rayEnd[0] < -50  ||  m_rayEnd[1] > 50  || m_rayEnd[1] < -50 ||  m_rayEnd[2] > 50  || m_rayEnd[2] < -50)
-  {
-        return true;
-      }
-
-
-
-}
-
-
-ngl::Vector Boid::ObAvoid()
-{
-  if (checkCollisions() == true)
-
-  {
-
-    std::cout<<"HIT!"<<std::endl;
-
-    ngl::Vector steerforce;
-    steerforce = m_rayEnd-m_rayStart;
-    ngl::Vector Sum;
-
-    steerforce.normalize();
-    //l=steerforce.length()/l;
-    //l -= 1;
-    ngl::Vector s;
-    s = steerforce*-steerforce.length();
-    Sum +=s;
-
-    return Sum;
-
-  }
-}

@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Sun Mar 11 18:42:05 2012
-**      by: Qt User Interface Compiler version 4.7.0
+** Created: Wed Mar 21 14:01:14 2012
+**      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -39,6 +39,7 @@ public:
     QCheckBox *m_wireframe;
     QPushButton *m_addBoid;
     QPushButton *m_removeBoid;
+    QCheckBox *m_animate;
     QSpacerItem *horizontalSpacer;
     QGroupBox *s_transGB;
     QGridLayout *gridLayout;
@@ -84,6 +85,11 @@ public:
         m_removeBoid->setObjectName(QString::fromUtf8("m_removeBoid"));
 
         gridLayout_2->addWidget(m_removeBoid, 1, 0, 1, 1);
+
+        m_animate = new QCheckBox(s_drawGB);
+        m_animate->setObjectName(QString::fromUtf8("m_animate"));
+
+        gridLayout_2->addWidget(m_animate, 3, 0, 1, 1);
 
 
         s_mainwindowgridlayout->addWidget(s_drawGB, 1, 1, 1, 1);
@@ -170,7 +176,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 800, 23));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -188,6 +194,7 @@ public:
         m_wireframe->setText(QApplication::translate("MainWindow", "Wireframe", 0, QApplication::UnicodeUTF8));
         m_addBoid->setText(QApplication::translate("MainWindow", "Add Boid", 0, QApplication::UnicodeUTF8));
         m_removeBoid->setText(QApplication::translate("MainWindow", "Remove Boid", 0, QApplication::UnicodeUTF8));
+        m_animate->setText(QApplication::translate("MainWindow", "Play/Pause", 0, QApplication::UnicodeUTF8));
         s_transGB->setTitle(QString());
         m_MassLabel->setText(QApplication::translate("MainWindow", "Mass", 0, QApplication::UnicodeUTF8));
         m_MaxSpeedLabel->setText(QApplication::translate("MainWindow", "Max Speed", 0, QApplication::UnicodeUTF8));
