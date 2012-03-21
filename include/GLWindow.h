@@ -6,10 +6,11 @@
 #include "ngl/SpotLight.h"
 #include "ngl/TransformStack.h"
 #include "ngl/Obj.h"
+#include "ngl/BezierCurve.h"
 #include "BoidManager.h"
 #include "Scene.h"
 #include "Lattice.h"
-#include "Export.h"
+#include "Goal.h"
 // must be included after our stuff becuase GLEW needs to be first
 #include <QtOpenGL>
 
@@ -37,21 +38,42 @@ public :
            QWidget *_parent
           );
   //----------------------------------------------------------------------------------------------------------------------
-	/// @brief dtor add any code here to tidy up
+        /// @brief dtor add any code here to tidy up
   //----------------------------------------------------------------------------------------------------------------------
   ~GLWindow();
+
   //----------------------------------------------------------------------------------------------------------------------
-	/// @brief processKey passed from the main window class
-	/// @param *_event a pointer to the QKeyEvent passed from main window
-	/// class
+/// @brief toggle the Animation of the lights called from main window
   //----------------------------------------------------------------------------------------------------------------------
-	void processKey(
-									 QKeyEvent *_event
-									);
+inline void toggleAnimation(){m_animate^=true;}
+  //----------------------------------------------------------------------------------------------------------------------
+  /// @brief method called from main window for keyPress
+  //----------------------------------------------------------------------------------------------------------------------
+  void keyPress(
+                                                           QKeyEvent *_event
+                                                   );
+
+
+
+
+  //----------------------------------------------------------------------------------------------------------------------
+        /// @brief processKey passed from the main window class
+        /// @param *_event a pointer to the QKeyEvent passed from main window
+        /// class
+  //----------------------------------------------------------------------------------------------------------------------
+        void processKey(
+                                                                         QKeyEvent *_event
+                                                                        );
     public slots:
         /// @brief a slot to toggle wireframe mode
         /// @param [in] _mode the mode passed from toggle button
         void toggleWireframe(
+                             bool _mode
+                             );
+
+        /// @brief a slot to toggle wireframe mode
+        /// @param [in] _mode the mode passed from toggle button
+        void toggleAnimation(
                              bool _mode
                              );
 
@@ -98,6 +120,10 @@ public :
 
 
 private :
+  /// @brief flag to indicate if animation is active or not
+  //----------------------------------------------------------------------------------------------------------------------
+  bool m_animate;
+
   /// @brief m_wireframe mode
   //----------------------------------------------------------------------------------------------------------------------
    bool m_wireframe;
@@ -129,6 +155,16 @@ private :
   /// @brief a timer triggered by the startTimer call in the ctor
   //----------------------------------------------------------------------------------------------------------------------
   int m_animationTimer;
+
+
+  /// @brief a timer triggered by the startTimer call in the ctor
+  //----------------------------------------------------------------------------------------------------------------------
+  int m_goalTimer;
+
+
+
+
+
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief used to store the x rotation mouse value
   //----------------------------------------------------------------------------------------------------------------------
@@ -154,16 +190,9 @@ private :
   //----------------------------------------------------------------------------------------------------------------------
   ngl::Vector m_modelPos;
   //----------------------------------------------------------------------------------------------------------------------
-  /// @brief the increment for x/y translation with mouse movement
-  //----------------------------------------------------------------------------------------------------------------------
-  const static float INCREMENT=0.01;
-  //----------------------------------------------------------------------------------------------------------------------
   /// @brief the increment for the wheel zoom
   //----------------------------------------------------------------------------------------------------------------------
   const static float ZOOM=5;
-  //----------------------------------------------------------------------------------------------------------------------
-  /// @brief the previous y mouse value for Position changes
-  //----------------------------------------------------------------------------------------------------------------------
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Our Camera
   //----------------------------------------------------------------------------------------------------------------------
@@ -191,13 +220,17 @@ private :
   //----------------------------------------------------------------------------------------------------------------------
   Lattice *m_lattice;
   //----------------------------------------------------------------------------------------------------------------------
-  Export *m_exportFile;
+  //Goal *m_goal;
+  //----------------------------------------------------------------------------------------------------------------------
+  /// @brief a vector array of curves to draw
+  std::vector<ngl::BezierCurve *>m_curves;
+
+  /// @brief a vector array of Goals
+  std::vector<Goal *>m_goals;
 
   int m_numboids;
 
   int m_numpredators;
-
-  int m_exportTimer;
 
 protected:
 
@@ -258,6 +291,13 @@ private :
   void mouseReleaseEvent (
                           QMouseEvent *_event
                          );
+  //----------------------------------------------------------------------------------------------------------------------
+  /// @brief the timer event triggered from the timers
+  /// @param _even the event of the timer triggered by Qt
+  //----------------------------------------------------------------------------------------------------------------------
+  void timerEvent(
+                  QTimerEvent *_event
+                 );
 
   //----------------------------------------------------------------------------------------------------------------------
    /// @brief this method is called everytime the mouse wheel is moved
@@ -267,13 +307,9 @@ private :
    void wheelEvent(
                      QWheelEvent *_event
                   );
-  //----------------------------------------------------------------------------------------------------------------------
-  /// @brief the timer event triggered from the timers
-  /// @param _even the event of the timer triggered by Qt
-  //----------------------------------------------------------------------------------------------------------------------
-  void timerEvent(
-                  QTimerEvent *_event
-                 );
+
+
+  void loadCurves();
 
 };
 

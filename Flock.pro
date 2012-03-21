@@ -33,7 +33,8 @@ HEADERS += \
     include/Predator.h \
     include/Scene.h \
     include/Lattice.h \
-    include/Export.h
+    include/Export.h \
+    include/Goal.h
 
 OTHER_FILES+= shaders/Fragment.fs \
               shaders/Vertex.vs \

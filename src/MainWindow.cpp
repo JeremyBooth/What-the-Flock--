@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_gl=new GLWindow(this);
     m_ui->s_mainwindowgridlayout->addWidget(m_gl,0,0,2,1);
     connect(m_ui->m_wireframe,SIGNAL(toggled(bool)),m_gl,SLOT(toggleWireframe(bool)));
+    connect(m_ui->m_animate,SIGNAL(toggled(bool)),m_gl,SLOT(toggleAnimation(bool)));
     connect(m_ui->m_mass,SIGNAL(valueChanged(double)),m_gl,SLOT(setMass(double)));
     connect(m_ui->m_speed,SIGNAL(valueChanged(double)),m_gl,SLOT(setMaxSpeed(double)));
     connect(m_ui->m_force,SIGNAL(valueChanged(double)),m_gl,SLOT(setMaxForce(double)));
