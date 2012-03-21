@@ -22,7 +22,8 @@ SOURCES += \
     src/Predator.cpp \
     src/Scene.cpp \
     src/Lattice.cpp \
-    src/Export.cpp
+    src/Export.cpp \
+    src/Goal.cpp
 
 HEADERS += \
     include/MainWindow.h \

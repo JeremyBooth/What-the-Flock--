@@ -143,7 +143,7 @@ void Boid::draw( ngl::TransformStack &_tx,
       //m_Yrot-90
 
 
-    _tx.setRotation(0,m_Yrot,0);
+    _tx.setRotation(0,0,m_Zrot);
 
     //Load the shader
    // _transformStack.loadGlobalAndCurrentMatrixToShader("Phong","ModelMatrix");
@@ -181,7 +181,7 @@ void Boid::update(std::vector <Boid> m_boids)
 
   //Here i apply weightings to the steering forces to give priority to the more influencial ones.
   //fle = fle*100;
-  obs = obs*2;
+  obs = obs*0.2;
   sep = sep*1.8;
   coh = coh*1;
   ali = ali*1;
@@ -244,15 +244,19 @@ void Boid::update(std::vector <Boid> m_boids)
   //add the new velocity to the old position to get the new postion
   m_pos=m_pos+m_vel;
 
+  int bound;
+
+  bound = 50;
+
 
 
   //This keeps the flock inside the bounding box
-  if (m_pos[0] > 50)   {m_pos[0] = -50;}
-  if (m_pos[0] < -50)  {m_pos[0] = 50;}
-  if (m_pos[1] > 50)   {m_pos[1] = -50;}
-  if (m_pos[1] < -50)  {m_pos[1] = 50;}
-  if (m_pos[2] > 50)   {m_pos[2] = -50;}
-  if (m_pos[2] < -50)  {m_pos[2] = 50;}
+  if (m_pos[0] > bound)   {m_pos[0] = -bound;}
+  if (m_pos[0] < -bound)  {m_pos[0] = bound;}
+  if (m_pos[1] > bound)   {m_pos[1] = -bound;}
+  if (m_pos[1] < -bound)  {m_pos[1] = bound;}
+  if (m_pos[2] > bound)   {m_pos[2] = -bound;}
+  if (m_pos[2] < -bound)  {m_pos[2] = bound;}
 
  /*float deg = 180/3.14;
 
@@ -436,10 +440,42 @@ ngl::Vector Boid::Hunt(std::vector <Boid> m_boids)
 bool Boid::checkCollisions()
 {
 
-      if (m_rayEnd[0] > 50 || m_rayEnd[0] < -50  ||  m_rayEnd[1] > 50  || m_rayEnd[1] < -50 ||  m_rayEnd[2] > 50  || m_rayEnd[2] < -50)
+  ngl::Vector obsPos;
+  obsPos = (0,0,0);
+  GLfloat radius;
+  radius = 3;
+
+  // variables for the Quadratic roots and discriminator
+  GLfloat A,B,C,discrim;
+  ngl::Vector p;
+  // normalize the ray
+  m_vel.normalize();
+  // cal the A value as the dotproduct a.a (see lecture notes)
+  A = m_vel.dot(m_vel);
+  //b= 2*d.(Po-Pc)
+  p=m_pos-obsPos;
+  B= m_vel.dot(p)*2;
+  // C = (Po-Pc).(Po-Pc)-r^2
+  C=p.dot(p)-radius*radius;
+  // finally get the descrim
+  // b^2-4(ac)
+  discrim = B * B - 4*(A * C);
+  // if the discrim <= 0.0 it's not a hit
+  if(discrim <= 0.0)
+  {
+    return false;
+  }
+  else
+  {
+    //std::cout<< "HIT!";
+    return true;
+  }
+
+
+      /*if (m_rayEnd[0] > 50 || m_rayEnd[0] < -50  ||  m_rayEnd[1] > 50  || m_rayEnd[1] < -50 ||  m_rayEnd[2] > 50  || m_rayEnd[2] < -50)
   {
         return true;
-      }
+      }*/
 
 
 
@@ -454,7 +490,20 @@ ngl::Vector Boid::ObAvoid()
 
     std::cout<<"HIT!"<<std::endl;
 
-    ngl::Vector steerforce;
+
+    ngl::Vector dist;
+    ngl::Vector pos;
+
+    dist = m_pos - pos;
+
+    dist.normalize();
+
+    //s= sqrt(9 - )
+
+
+    //vector = m_pos+(dist.length() - ).
+
+    /*ngl::Vector steerforce;
     steerforce = m_rayEnd-m_rayStart;
     ngl::Vector Sum;
 
@@ -463,9 +512,9 @@ ngl::Vector Boid::ObAvoid()
     //l -= 1;
     ngl::Vector s;
     s = steerforce*-steerforce.length();
-    Sum +=s;
+    Sum +=s;*/
 
-    return Sum;
+    //return Sum;
 
   }
 }
