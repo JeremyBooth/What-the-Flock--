@@ -164,7 +164,7 @@ void Boid::draw( ngl::TransformStack &_tx,
 }
 //----------------------------------------------------------------------------------------------------------------------
 
-void Boid::update(std::vector <Boid> m_boids)
+void Boid::update(std::vector <Boid> m_boids, ngl::Vector _goalPos)
 {
   //first I declare the acceleration. This means that the acceleration is (0,0,0) each update
   //float acc=acc*0;
@@ -176,6 +176,7 @@ void Boid::update(std::vector <Boid> m_boids)
   ngl::Vector sep(this->Seperation(m_boids));
   ngl::Vector coh(this->Cohesion(m_boids));
   ngl::Vector ali(this->Alignment(m_boids));
+  ngl::Vector goalInf(this->GoalInfluence(m_boids,_goalPos));
 
   //ngl::Vector fle(this->Flee(m_boids));
 
@@ -196,7 +197,7 @@ void Boid::update(std::vector <Boid> m_boids)
   steering_direction = steering_direction + sep;
   steering_direction = steering_direction + coh;
   steering_direction = steering_direction + ali;
-
+  steering_direction = steering_direction + goalInf;
 
   //Here i produce a steering force by truncating the steering direction by the Maximum force
   //First we find the magnitude of the steering force
@@ -394,6 +395,15 @@ ngl::Vector Boid::Alignment(std::vector <Boid> m_boids)
   m = avg - m_vel;
   return m;
 }
+
+
+ngl::Vector Boid::GoalInfluence(std::vector <Boid> m_boids, ngl::Vector _goalPos)
+{
+    ngl::Vector m(0,0,0);
+    m = (_goalPos - m_pos);
+    return m;
+}
+
 //----------------------------------------------------------------------------------------------------------------------
 
 /*ngl::Vector Boid::Flee(std::vector <Predator> m_predators)

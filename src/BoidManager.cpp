@@ -56,13 +56,13 @@ BoidManager::BoidManager(
     }
 
 }
-void BoidManager::update()
+void BoidManager::update(ngl::Vector _goalPos)
 {
 
   *m_outFile<<"Frame "<<m_frame<<"\n";
   for(int i=0; i<m_numBoids; ++i)
   {
-      m_boids[i].update(m_boids);
+      m_boids[i].update(m_boids, _goalPos);
       *m_outFile<<"B"<<i<<" "<<m_boids[i].getPos().m_x
                         <<" "<<m_boids[i].getPos().m_y
                         <<" "<<m_boids[i].getPos().m_z
@@ -245,7 +245,7 @@ ngl::Vector BoidManager::getPredators()
 
   for(int i=0; i<m_numPredators; ++i)
   {
-    std::cout<<m_predators[i].m_pos<<std::endl;
+    //std::cout<<m_predators[i].m_pos<<std::endl;
     return m_predators[i].m_pos;
   }
 }

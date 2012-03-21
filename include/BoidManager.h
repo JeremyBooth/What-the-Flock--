@@ -33,7 +33,7 @@ public:
     /// @brief dtor
      ~BoidManager();
 
-     void update();
+     void update(ngl::Vector _goalpos);
 
     /// @brief method to draw Boids
     /// @brief the transform stack

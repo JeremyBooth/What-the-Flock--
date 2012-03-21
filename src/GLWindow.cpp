@@ -493,7 +493,8 @@ void GLWindow::timerEvent(
             {
                     return;
             }
-            m_flock->update();
+
+            m_flock->update(m_goals[0]->getPos());
             updateGL();
         }
         if (_event->timerId() == m_goalTimer)

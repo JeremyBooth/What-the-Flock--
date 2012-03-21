@@ -23,27 +23,19 @@ Lattice::Lattice(
 
 }
 
-void Lattice::loadMatricesToShader(ngl::TransformStack &_tx, ngl::Camera *_cam) const
-
+void Lattice::loadMatricesToColourShader(
+                                      ngl::TransformStack &_tx,
+                                      ngl::Camera *_cam
+                                      ) const
 {
+  ngl::ShaderLib *shader=ngl::ShaderLib::instance();
+  (*shader)["Colour"]->use();
+  ngl::Matrix MV;
+  ngl::Matrix MVP;
 
-
-    ngl::ShaderLib *shader=ngl::ShaderLib::instance();
-
-    ngl::Matrix MV;
-    ngl::Matrix MVP;
-    ngl::Mat3x3 normalMatrix;
-    ngl::Matrix M;
-    M=_tx.getCurrentTransform().getMatrix();
-    MV=_tx.getCurrAndGlobal().getMatrix() * _cam->getViewMatrix();
-    MVP=MV * _cam->getProjectionMatrix();
-    normalMatrix=MV;
-    normalMatrix.inverse();
-    shader->setShaderParamFromMatrix("MV",MV);
-    shader->setShaderParamFromMatrix("MVP",MVP);
-    shader->setShaderParamFromMat3x3("normalMatrix",normalMatrix);
-    shader->setShaderParamFromMatrix("M",M);
-
+  MV= _tx.getCurrAndGlobal().getMatrix()*_cam->getViewMatrix() ;
+  MVP=MV*_cam->getProjectionMatrix() ;
+  shader->setShaderParamFromMatrix("MVP",MVP);
 
 }
 
@@ -60,7 +52,7 @@ void Lattice::draw( ngl::TransformStack &_tx,
 
     //m_bbox = new ngl::BBox(ngl::Vector(0,0,0),100,100,100);
 
-    loadMatricesToShader(_tx,_cam);
+    loadMatricesToColourShader(_tx,_cam);
 
     ngl::Matrix MVP=_tx.getCurrAndGlobal().getMatrix() * _cam->getVPMatrix();
     shader->setShaderParamFromMatrix("MVP",MVP);

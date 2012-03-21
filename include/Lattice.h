@@ -31,7 +31,7 @@ Lattice(
         int _length
         );
 
-void loadMatricesToShader(
+void loadMatricesToColourShader(
                            ngl::TransformStack &_tx,
                            ngl::Camera *_cam
                          )const;

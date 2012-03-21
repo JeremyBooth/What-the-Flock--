@@ -226,7 +226,7 @@ private :
   std::vector<ngl::BezierCurve *>m_curves;
 
   /// @brief a vector array of Goals
-  std::vector<Goal *>m_goals;
+  std::vector <Goal *> m_goals;
 
   int m_numboids;
 
