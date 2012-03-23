@@ -3,6 +3,7 @@
 
 #include "Boid.h"
 #include "Predator.h"
+#include <ngl/BezierCurve.h>
 #include <vector>
 #include <ngl/TransformStack.h>
 #include <QFile>
@@ -27,13 +28,14 @@ public:
     /// @param _numBoids the number of Boids
     BoidManager(
             int _numBoids,
-            int _numPredators
+            int _numPredators,
+            std::vector <Goal *> _goals
             );
 
     /// @brief dtor
      ~BoidManager();
 
-     void update(ngl::Vector _goalpos);
+     void update();
 
     /// @brief method to draw Boids
     /// @brief the transform stack
@@ -69,6 +71,10 @@ public:
     /// @param[in] the new alignment distance
     void setAliDist(double m_ali);
 
+    /// @brief sets the goal influence value
+    /// @param[in] the new goal influence value
+    void setGoalInf(double _goalInf);
+
     /// @brief adds a boid to the m_boids array
     void addBoid();
 
@@ -90,11 +96,18 @@ private:
     /// @brief our container of boids
     std::vector <Predator> m_predators;
 
+
+    std::vector <Goal *> m_goals;
+
     /// @brief number of boids
     int m_numBoids;
 
     /// @brief number of Predators
     int m_numPredators;
+
+    /// @brief number of Goals
+    int m_numGoals;
+
 
     /// @brief the active boids
     int m_activeBoid;

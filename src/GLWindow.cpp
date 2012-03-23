@@ -2,6 +2,7 @@
 #include <boost/foreach.hpp>
 #include <QFile>
 #include <QTextStream>
+#include <QString>
 #include <iostream>
 #include "ngl/Light.h"
 #include "ngl/Transformation.h"
@@ -52,7 +53,10 @@ GLWindow::GLWindow(
         // multiple timers but each must have it's own ID
         m_animationTimer=startTimer(20);
         m_goalTimer=startTimer(20);
-        m_animate=false;
+        m_animateBoids=true;
+        m_animateGoal=false;
+        m_record=false;
+
         //m_bbox = new ngl::BBox(ngl::Vector(0,0,0),100,100,100);
 }
 
@@ -96,12 +100,13 @@ void GLWindow::initializeGL()
         // set the shape using FOV 45 Aspect Ratio based on Width and Height
         // The final two are near and far clipping planes of 0.5 and 150
         m_cam->setShape(45,(float)1024/768,0.5,150,ngl::PERSPECTIVE);
+
+
+
         // now to load the shader and set the values
         // grab an instance of shader manager
-  ngl::ShaderLib *shader=ngl::ShaderLib::instance();
-
-
-  shader->createShaderProgram("Phong");
+   ngl::ShaderLib *shader=ngl::ShaderLib::instance();
+   shader->createShaderProgram("Phong");
 
    shader->attachShader("PhongVertex",ngl::VERTEX);
    shader->attachShader("PhongFragment",ngl::FRAGMENT);
@@ -114,11 +119,8 @@ void GLWindow::initializeGL()
    shader->attachShaderToProgram("Phong","PhongFragment");
 
    shader->bindAttribute("Phong",0,"inVert");
-
    shader->bindAttribute("Phong",1,"inUV");
-
    shader->bindAttribute("Phong",2,"inNormal");
-
 
    // now we have associated this data we can link the shader
    shader->linkProgramObject("Phong");
@@ -143,6 +145,7 @@ void GLWindow::initializeGL()
    // load these values to the shader as well
    m_light->loadToShader("light");
 
+
    /// now for the colour shader
    shader->createShaderProgram("Colour");
 
@@ -165,41 +168,28 @@ void GLWindow::initializeGL()
    shader->setShaderParam4f("Colour",1,0,0,1);
    glEnable(GL_DEPTH_TEST); // for removal of hidden surfaces
 
- /*
-        // load a frag and vert shaders
-        shader->loadShader("Blinn","shaders/Vertex.vs","shaders/Fragment.fs");
-        // set this as the active shader
-        shader->useShader("Blinn");
-        // now pass the modelView and projection values to the shader
-  shader->setShaderParamFromMatrix("Blinn","ViewMatrix",m_cam->getModelView());
-  //shader->setShaderParamFromMatrix("Blinn","projectionMatrix",m_cam->getProjection());
-        shader->loadShader("Colour","shaders/Colour.vs","shaders/Colour.fs");
 
-                        // set this as the active shader
-                  shader->useShader("Colour");
-                        shader->setShaderParamFromMatrix("Colour","ViewMatrix",m_cam->getModelView());
-                  //shader->setShaderParamFromMatrix("Colour","projectionMatrix",m_cam->getProjection());
+   loadCurves();
 
-                        shader->setShaderParam4f("Colour","Colour",1,1,1,1);*/
+        //creates a goal for each curve imported from maya
+   BOOST_FOREACH(ngl::BezierCurve *c, m_curves)
+   {
+       Goal *goal = new Goal(c);
+       m_goals.push_back(goal);
 
-        m_flock = new BoidManager(m_numboids,m_numpredators);
+   }
+
+   m_flock = new BoidManager(m_numboids,m_numpredators,m_goals);
 
       //  m_bbox = new ngl::BBox(ngl::Vector(0,0,0),100,100,100);
 
-        m_lattice = new Lattice(100);
+   m_lattice = new Lattice(100);
 
-        m_scene = new Scene();
+   m_scene = new Scene();
 
-        loadCurves();
 
-        //creates a goal for each curve imported from maya
-        BOOST_FOREACH(ngl::BezierCurve *c, m_curves)
-        {
-            Goal *goal = new Goal(c);
-            m_goals.push_back(goal);
-            //std::cout<<m_goal.getPos()<<std::endl;
 
-        }
+
 
 
 }
@@ -248,6 +238,10 @@ void GLWindow::loadCurves()
      p->createKnots();
      p->createVAO();
    }
+
+   m_numGoals = m_curves.size();
+
+
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -261,48 +255,6 @@ void GLWindow::resizeGL(
 {
   glViewport(0,0,_w,_h);
   m_cam->setShape(45,(float)_w/_h,0.5,150,ngl::PERSPECTIVE);
-}
-  /*ngl::ShaderLib *shader=ngl::ShaderLib::instance();
-  (*shader)["Blinn"]->use();
-
-  shader->setShaderParamFromMatrix("Blinn","projectionMatrix",m_cam->getProjection());
-  (*shader)["Colour"]->use();
-          shader->setShaderParamFromMatrix("Colour","projectionMatrix",m_cam->getProjection());*/
-void GLWindow::loadMatricesToShader(
-                                     ngl::TransformStack &_tx
-                                   )
-{
-  ngl::ShaderLib *shader=ngl::ShaderLib::instance();
-  (*shader)["Phong"]->use();
-
-  ngl::Matrix MV;
-  ngl::Matrix MVP;
-  ngl::Mat3x3 normalMatrix;
-  ngl::Matrix M;
-  M=_tx.getCurrentTransform().getMatrix();
-  MV=_tx.getCurrAndGlobal().getMatrix() * m_cam->getViewMatrix();
-  MVP=MV * m_cam->getProjectionMatrix();
-  normalMatrix=MV;
-  normalMatrix.inverse();
-  shader->setShaderParamFromMatrix("MV",MV);
-  shader->setShaderParamFromMatrix("MVP",MVP);
-  shader->setShaderParamFromMat3x3("normalMatrix",normalMatrix);
-  shader->setShaderParamFromMatrix("M",M);
-}
-
-void GLWindow::loadMatricesToColourShader(
-                                           ngl::TransformStack &_tx
-                                         )
-{
-  ngl::ShaderLib *shader=ngl::ShaderLib::instance();
-  (*shader)["Colour"]->use();
-  ngl::Matrix MV;
-  ngl::Matrix MVP;
-
-  MV= _tx.getCurrAndGlobal().getMatrix() * m_cam->getViewMatrix();
-  MVP=MV * m_cam->getProjectionMatrix();
-  shader->setShaderParamFromMatrix("MVP",MVP);
-
 }
 
 
@@ -327,63 +279,27 @@ void GLWindow::paintGL()
   ngl::Transformation trans;
   // set the mouse rotation
   trans.setRotation(m_spinXFace,m_spinYFace,0);
+  trans.setPosition(m_modelPos);
   // set this in the TX stack
   m_transformStack.setGlobal(trans);
 
   // now load these values to the shader
 
-  loadMatricesToColourShader(m_transformStack);
   ngl::ShaderLib *shader=ngl::ShaderLib::instance();
   (*shader)["Colour"]->use();
-  shader->setShaderParam4f("Colour",1,0,0,1);
-
-  loadMatricesToShader(m_transformStack);
-  //ngl::ShaderLib *shader=ngl::ShaderLib::instance();
-  (*shader)["Phong"]->use();
-  //loadMatricesToShader(m_transformStack);
-
-  //ngl::ShaderLib *shader=ngl::ShaderLib::instance();
-  //(*shader)["Colour"]->use();
-
-  //shader->use("Phong");
 
   m_flock->draw(m_transformStack,  m_cam, "Phong","Colour");
 
-  //m_goals->draw(m_transformStack, m_cam, "Colour");
+
 
   BOOST_FOREACH(Goal *goal, m_goals)
   {
       goal->draw(m_transformStack, m_cam, "Phong");
-     // m_goals.push_back(goal);
-      //std::cout<<m_goal.getPos()<<std::endl;
-
   }
 
+  m_lattice->draw(m_transformStack, m_cam, "Colour");
 
 
- // (*shader)["Colour"]->use();
-
-  // get the VBO instance and draw the built in teapot
- //ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();
- // draw
- //loadMatricesToColourShader(m_transformStack);
-
- shader->setShaderParam4f("Colour",0,0,1,1);
- m_lattice->draw(m_transformStack, m_cam, "Colour");
-
- //m_bbox->draw();
-  /*m_transformStack.loadGlobalAndCurrentMatrixToShader("Colour","ModelMatrix");
-
-  m_bbox->draw();
-
-  m_transformStack.loadGlobalAndCurrentMatrixToShader("Blinn","ModelMatrix");
-  shader->setShaderParamFromMatrix("Blinn","ModelMatrix",m_transformStack.getCurrAndGlobal().getMatrix());
-  (*shader)["Blinn"]->use();*/
-
-   /*m_flock->draw(m_transformStack,  m_cam,
-                  "Phong");*/
- //shader->setShaderParam4f("Colour",1,0,0,1);
- //shader->setShaderParam2f("Colour", 1,0);
 
  //DRAWS CURVE
  BOOST_FOREACH(ngl::BezierCurve *c, m_curves)
@@ -403,6 +319,25 @@ void GLWindow::paintGL()
 
  m_scene->draw(m_transformStack, m_cam, "Colour");
  }
+
+
+
+if (m_record == true)
+    {
+        glUseProgramObjectARB(0);
+        glColor3f(1,0,0);
+        QFont font;
+        font.setPointSize(30);
+        QString text=QString("REC");
+        renderText(10,40,text,font);
+
+   /*
+        QString text;
+        m_text->setColour(1,1,1);
+        text.sprintf("REC");
+        m_text->renderText(10,10,text);
+*/
+    }
 
 }
 
@@ -489,17 +424,17 @@ void GLWindow::timerEvent(
         // any timers we have started with startTimer
         if (_event->timerId() == m_animationTimer)
         {
-            if (m_animate !=true)
+            if (m_animateBoids !=true)
             {
                     return;
             }
 
-            m_flock->update(m_goals[0]->getPos());
+            m_flock->update();
             updateGL();
         }
         if (_event->timerId() == m_goalTimer)
         {
-            if (m_animate !=true)
+            if (m_animateGoal !=true)
             {
                     return;
             }
@@ -521,7 +456,7 @@ void GLWindow::keyPress(QKeyEvent *_event)
 
   switch (_event->key())
   {
-                case  Qt::Key_Space : m_animate^=true; break;
+                //case  Qt::Key_Space : m_animateBoids^=true; break;
       std::cout<<"space"<<std::endl;
 
         }
@@ -571,15 +506,46 @@ void GLWindow::toggleWireframe(
 // the key event from that, if we didn't need to process the events in main
 // window we could just overload this as the keyPressEvent and only process here.
 //---------------------------------------------------------------------------------------------------------------------
-void GLWindow::toggleAnimation(
+void GLWindow::toggleBoidAnimation(
                      bool _mode
                      )
 
 {
-    m_animate =_mode;
+    m_animateBoids =_mode;
 
     updateGL();
 }
+
+//----------------------------------------------------------------------------------------------------------------------
+// in this case this method is called from the MainWindow class and passed
+// the key event from that, if we didn't need to process the events in main
+// window we could just overload this as the keyPressEvent and only process here.
+//---------------------------------------------------------------------------------------------------------------------
+void GLWindow::toggleGoalAnimation(
+                     bool _mode
+                     )
+
+{
+    m_animateGoal =_mode;
+
+    updateGL();
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+// in this case this method is called from the MainWindow class and passed
+// the key event from that, if we didn't need to process the events in main
+// window we could just overload this as the keyPressEvent and only process here.
+//---------------------------------------------------------------------------------------------------------------------
+void GLWindow::toggleRecord(
+                     bool _mode
+                     )
+
+{
+    m_record =_mode;
+
+    updateGL();
+}
+
 
 
 
@@ -591,9 +557,14 @@ void GLWindow::setMass(
                         )
 
 {
+
   m_mass=_m;
-  m_flock->setMass(_m);
+  m_flock->setMass(m_mass);
+
+  std::cout<<m_mass<<std::endl;
+
   updateGL();
+
 }
 
 
@@ -663,6 +634,21 @@ void GLWindow::setAliDist(
 }
 
 //----------------------------------------------------------------------------------------------------------------------
+// Here the new goal influence value can be passed into the boids
+//----------------------------------------------------------------------------------------------------------------------
+void GLWindow::setGoalInf(
+                        int _m
+                        )
+
+{
+  // converts int to double
+  m_goalInf =_m;
+  m_flock->setGoalInf(m_goalInf/1);
+  updateGL();
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------
 // Here this calls the remove boid funtion, this removes one boids from the end of the vector
 //----------------------------------------------------------------------------------------------------------------------
 void GLWindow::removeBoid()
@@ -679,3 +665,16 @@ void GLWindow::addBoid()
  m_flock->addBoid();
  updateGL();
 }
+
+//----------------------------------------------------------------------------------------------------------------------
+// Here this calls the add boid function, this adds one boid to the end of the vector
+//----------------------------------------------------------------------------------------------------------------------
+void GLWindow::resetGoals()
+{
+    for(int i=0; i<m_numGoals; ++i)
+    {
+        m_goals[i]->resetPosition();
+    }
+}
+
+

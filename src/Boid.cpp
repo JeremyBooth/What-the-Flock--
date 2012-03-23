@@ -5,6 +5,7 @@
 
 #include "Boid.h"
 #include "BoidManager.h"
+#include "Goal.h"
 //#include "Predator.h"
 #include <ngl/Vector.h>
 #include <ngl/ShaderLib.h>
@@ -15,6 +16,7 @@
 Boid::Boid(
            const ngl::Vector &_pos,
            const ngl::Vector &_vel,
+           int _goalID,
            ngl::Obj *_mesh
           )
 
@@ -22,11 +24,13 @@ Boid::Boid(
   //Boid movement properties
   m_pos=_pos;
   m_mesh=_mesh;
+  m_goalID = _goalID;
   m_vel=_vel;
   m_acc=m_acc;
   m_mass=10;
   m_maxF=1.5;
   m_maxS=1;
+  m_goalInf=0;
 
   //Boid rotational properties
   x_rot=x_rot;
@@ -42,6 +46,7 @@ Boid::Boid(
   m_ali = 8.0;
 
 }
+
 
 void Boid::loadMatricesToShader(
                                      ngl::TransformStack &_tx,
@@ -65,6 +70,8 @@ void Boid::loadMatricesToShader(
   shader->setShaderParamFromMatrix("M",M);
 
 }
+/*
+
 
 void Boid::loadMatricesToColourShader(
                                       ngl::TransformStack &_tx,
@@ -81,6 +88,9 @@ void Boid::loadMatricesToColourShader(
   shader->setShaderParamFromMatrix("MVP",MVP);
 
 }
+*/
+
+
 //----------------------------------------------------------------------------------------------------------------------
 
 void Boid::draw( ngl::TransformStack &_tx,
@@ -95,11 +105,11 @@ void Boid::draw( ngl::TransformStack &_tx,
   {
     ngl::ShaderLib *shader = ngl::ShaderLib::instance();
     //Set shader as active
-    (*shader)[_shader2]->use();
 
+    (*shader)[_shader2]->use();
     m_rayStart = m_pos;
     m_rayEnd = (m_vel*10)+m_pos;
-
+    shader->setShaderParam4f(_shader2,0,1,0,1);
     ngl::VertexArrayObject *vao= ngl::VertexArrayObject::createVOA(GL_LINES);
     vao->bind();
     ngl::Vec3 points[2];
@@ -108,9 +118,11 @@ void Boid::draw( ngl::TransformStack &_tx,
     vao->setData(2*sizeof(ngl::Vec3),points[0].m_x);
     vao->setVertexAttributePointer(0,3,GL_FLOAT,sizeof(ngl::Vec3),0);
     vao->setNumIndices(2);
-    loadMatricesToColourShader(_tx, _cam);
+    //loadMatricesToColourShader(_tx, _cam);
     vao->draw();
     vao->removeVOA();
+
+
   }
   _tx.popTransform();
 
@@ -144,7 +156,7 @@ void Boid::draw( ngl::TransformStack &_tx,
       //m_Yrot-90
 
 
-    _tx.setRotation(0,m_Yrot,0);
+    _tx.setRotation(0,0,m_Zrot);
 
     //Load the shader
    // _transformStack.loadGlobalAndCurrentMatrixToShader("Phong","ModelMatrix");
@@ -182,6 +194,9 @@ void Boid::update(std::vector <Boid> m_boids, ngl::Vector _goalPos)
 
   //Here i apply weightings to the steering forces to give priority to the more influencial ones.
   //fle = fle*100;
+
+  //obs = obs*0.2;
+
   sep = sep*1.8;
   coh = coh*1;
   ali = ali*1;
@@ -194,10 +209,7 @@ void Boid::update(std::vector <Boid> m_boids, ngl::Vector _goalPos)
 
   //Add the different forces to the steering direction vector
   //steering_direction = steering_direction + fle;
-  steering_direction = steering_direction + sep;
-  steering_direction = steering_direction + coh;
-  steering_direction = steering_direction + ali;
-  steering_direction = steering_direction + goalInf;
+  steering_direction = steering_direction + sep + coh + ali + goalInf;
 
   //Here i produce a steering force by truncating the steering direction by the Maximum force
   //First we find the magnitude of the steering force
@@ -243,15 +255,21 @@ void Boid::update(std::vector <Boid> m_boids, ngl::Vector _goalPos)
   //add the new velocity to the old position to get the new postion
   m_pos=m_pos+m_vel;
 
+  int bound;
+
+  bound = 50;
+
 
 
   //This keeps the flock inside the bounding box
-  if (m_pos[0] > 50)   {m_pos[0] = -50;}
-  if (m_pos[0] < -50)  {m_pos[0] = 50;}
-  if (m_pos[1] > 50)   {m_pos[1] = -50;}
-  if (m_pos[1] < -50)  {m_pos[1] = 50;}
-  if (m_pos[2] > 50)   {m_pos[2] = -50;}
-  if (m_pos[2] < -50)  {m_pos[2] = 50;}
+  if (m_pos[0] > bound)   {m_pos[0] = -bound;}
+  if (m_pos[0] < -bound)  {m_pos[0] = bound;}
+  if (m_pos[1] > bound)   {m_pos[1] = -bound;}
+  if (m_pos[1] < -bound)  {m_pos[1] = bound;}
+  if (m_pos[2] > bound)   {m_pos[2] = -bound;}
+  if (m_pos[2] < -bound)  {m_pos[2] = bound;}
+
+
 
  /*float deg = 180/3.14;
 
@@ -400,7 +418,7 @@ ngl::Vector Boid::Alignment(std::vector <Boid> m_boids)
 ngl::Vector Boid::GoalInfluence(std::vector <Boid> m_boids, ngl::Vector _goalPos)
 {
     ngl::Vector m(0,0,0);
-    m = (_goalPos - m_pos);
+    m = ((_goalPos - m_pos)*(m_goalInf/100));
     return m;
 }
 
@@ -441,3 +459,85 @@ ngl::Vector Boid::Hunt(std::vector <Boid> m_boids)
 }*/
 
 //Boid::~Boid();
+
+bool Boid::checkCollisions()
+{
+
+  ngl::Vector obsPos;
+  obsPos = (0,0,0);
+  GLfloat radius;
+  radius = 3;
+
+  // variables for the Quadratic roots and discriminator
+  GLfloat A,B,C,discrim;
+  ngl::Vector p;
+  // normalize the ray
+  m_vel.normalize();
+  // cal the A value as the dotproduct a.a (see lecture notes)
+  A = m_vel.dot(m_vel);
+  //b= 2*d.(Po-Pc)
+  p=m_pos-obsPos;
+  B= m_vel.dot(p)*2;
+  // C = (Po-Pc).(Po-Pc)-r^2
+  C=p.dot(p)-radius*radius;
+  // finally get the descrim
+  // b^2-4(ac)
+  discrim = B * B - 4*(A * C);
+  // if the discrim <= 0.0 it's not a hit
+  if(discrim <= 0.0)
+  {
+    return false;
+  }
+  else
+  {
+    //std::cout<< "HIT!";
+    return true;
+  }
+
+
+      /*if (m_rayEnd[0] > 50 || m_rayEnd[0] < -50  ||  m_rayEnd[1] > 50  || m_rayEnd[1] < -50 ||  m_rayEnd[2] > 50  || m_rayEnd[2] < -50)
+  {
+        return true;
+      }*/
+
+
+
+}
+
+
+ngl::Vector Boid::ObAvoid()
+{
+  if (checkCollisions() == true)
+
+  {
+
+    std::cout<<"HIT!"<<std::endl;
+
+
+    ngl::Vector dist;
+    ngl::Vector pos;
+
+    dist = m_pos - pos;
+
+    dist.normalize();
+
+    //s= sqrt(9 - )
+
+
+    //vector = m_pos+(dist.length() - ).
+
+    /*ngl::Vector steerforce;
+    steerforce = m_rayEnd-m_rayStart;
+    ngl::Vector Sum;
+
+    steerforce.normalize();
+    //l=steerforce.length()/l;
+    //l -= 1;
+    ngl::Vector s;
+    s = steerforce*-steerforce.length();
+    Sum +=s;*/
+
+    //return Sum;
+
+  }
+}

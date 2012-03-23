@@ -13,8 +13,8 @@ Goal::Goal(ngl::BezierCurve *_path)
     m_mesh->createVAO(GL_STATIC_DRAW);
 
     m_path=*_path;
-    m_step=0.001;
-    m_pos=m_path.getPointOnCurve(0.5);
+    m_step=0.01;
+    m_pos=m_path.getPointOnCurve(0);
 
     //std::cout<<m_pos<<std::endl;
     m_curvePoint = 0.000;
@@ -65,8 +65,8 @@ void Goal::draw( ngl::TransformStack &_tx,
 
       loadMatricesToShader(_tx,_cam);
 
-      ngl::Matrix MVP=_tx.getCurrAndGlobal().getMatrix() * _cam->getVPMatrix();
-      shader->setShaderParamFromMatrix("MVP",MVP);
+      //ngl::Matrix MVP=_tx.getCurrAndGlobal().getMatrix() * _cam->getVPMatrix();
+      //shader->setShaderParamFromMatrix("MVP",MVP);
 
       m_mesh->draw();
 
@@ -81,6 +81,12 @@ void Goal::updatePosition()
     m_curvePoint+=m_step;
     m_pos= m_path.getPointOnCurve(m_curvePoint);
     std::cout<<m_pos;
+}
+
+void Goal::resetPosition()
+{
+    m_pos=m_path.getPointOnCurve(0);
+    m_curvePoint=0;
 }
 
 

@@ -31,10 +31,13 @@ Lattice(
         int _length
         );
 
+
+/*
 void loadMatricesToColourShader(
                            ngl::TransformStack &_tx,
                            ngl::Camera *_cam
                          )const;
+*/
 
 /// @brief method to draw Scene
 /// @brief the transform stack, pointer to Camera, and pointer to shader

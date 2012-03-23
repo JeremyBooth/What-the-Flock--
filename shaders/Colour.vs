@@ -4,8 +4,8 @@
 uniform mat4 MVP;
 
 in vec3 inVert;
-in vec2 inUV;
-in vec3 inNormal;
+//in vec2 inUV;
+//in vec3 inNormal;
 
 
 void main(void)

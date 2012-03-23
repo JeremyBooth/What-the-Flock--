@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'GLWindow.h'
 **
-** Created: Wed Mar 21 16:22:49 2012
+** Created: Fri Mar 23 11:59:32 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_GLWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -33,25 +33,31 @@ static const uint qt_meta_data_GLWindow[] = {
  // slots: signature, parameters, type, tag, flags
       16,   10,    9,    9, 0x0a,
       38,   10,    9,    9, 0x0a,
-      63,   60,    9,    9, 0x0a,
-      79,   60,    9,    9, 0x0a,
-      99,   60,    9,    9, 0x0a,
-     119,   60,    9,    9, 0x0a,
-     138,   60,    9,    9, 0x0a,
-     157,   60,    9,    9, 0x0a,
-     176,    9,    9,    9, 0x0a,
-     189,    9,    9,    9, 0x0a,
+      64,   10,    9,    9, 0x0a,
+      90,   10,    9,    9, 0x0a,
+     112,  109,    9,    9, 0x0a,
+     128,  109,    9,    9, 0x0a,
+     148,  109,    9,    9, 0x0a,
+     168,  109,    9,    9, 0x0a,
+     187,  109,    9,    9, 0x0a,
+     206,  109,    9,    9, 0x0a,
+     225,  109,    9,    9, 0x0a,
+     241,    9,    9,    9, 0x0a,
+     254,    9,    9,    9, 0x0a,
+     264,    9,    9,    9, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_GLWindow[] = {
     "GLWindow\0\0_mode\0toggleWireframe(bool)\0"
-    "toggleAnimation(bool)\0_m\0setMass(double)\0"
-    "setMaxSpeed(double)\0setMaxForce(double)\0"
-    "setSepDist(double)\0setCohDist(double)\0"
-    "setAliDist(double)\0removeBoid()\0"
-    "addBoid()\0"
+    "toggleBoidAnimation(bool)\0"
+    "toggleGoalAnimation(bool)\0toggleRecord(bool)\0"
+    "_m\0setMass(double)\0setMaxSpeed(double)\0"
+    "setMaxForce(double)\0setSepDist(double)\0"
+    "setCohDist(double)\0setAliDist(double)\0"
+    "setGoalInf(int)\0removeBoid()\0addBoid()\0"
+    "resetGoals()\0"
 };
 
 const QMetaObject GLWindow::staticMetaObject = {
@@ -84,18 +90,22 @@ int GLWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: toggleWireframe((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 1: toggleAnimation((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 2: setMass((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 3: setMaxSpeed((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 4: setMaxForce((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 5: setSepDist((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 6: setCohDist((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 7: setAliDist((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 8: removeBoid(); break;
-        case 9: addBoid(); break;
+        case 1: toggleBoidAnimation((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 2: toggleGoalAnimation((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 3: toggleRecord((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 4: setMass((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 5: setMaxSpeed((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 6: setMaxForce((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 7: setSepDist((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 8: setCohDist((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 9: setAliDist((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 10: setGoalInf((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 11: removeBoid(); break;
+        case 12: addBoid(); break;
+        case 13: resetGoals(); break;
         default: ;
         }
-        _id -= 10;
+        _id -= 14;
     }
     return _id;
 }

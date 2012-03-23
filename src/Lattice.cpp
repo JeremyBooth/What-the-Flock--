@@ -22,7 +22,7 @@ Lattice::Lattice(
 
 
 }
-
+/*
 void Lattice::loadMatricesToColourShader(
                                       ngl::TransformStack &_tx,
                                       ngl::Camera *_cam
@@ -39,6 +39,8 @@ void Lattice::loadMatricesToColourShader(
 
 }
 
+*/
+
 void Lattice::draw( ngl::TransformStack &_tx,
              ngl::Camera *_cam,
              const std::string &_shader)
@@ -48,15 +50,16 @@ void Lattice::draw( ngl::TransformStack &_tx,
     ngl::ShaderLib *shader = ngl::ShaderLib::instance();
     //Set shader as active
     (*shader)[_shader]->use();
-    shader->setShaderParam4f(_shader, 0, 1, 1, 1);
+    //shader->setShaderParam4f(_shader, 0, 1, 1, 1);
 
     //m_bbox = new ngl::BBox(ngl::Vector(0,0,0),100,100,100);
 
-    loadMatricesToColourShader(_tx,_cam);
+    //loadMatricesToColourShader(_tx,_cam);
 
-    ngl::Matrix MVP=_tx.getCurrAndGlobal().getMatrix() * _cam->getVPMatrix();
-    shader->setShaderParamFromMatrix("MVP",MVP);
+    //ngl::Matrix MVP=_tx.getCurrAndGlobal().getMatrix() * _cam->getVPMatrix();
+    //shader->setShaderParamFromMatrix("MVP",MVP);
 
+    shader->setShaderParam4f("Colour",0,1,1,1);
     m_bbox->draw();
 
 

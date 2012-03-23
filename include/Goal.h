@@ -1,6 +1,7 @@
 #ifndef _GOAL_H_
 #define _GOAL_H_
 
+
 #include <ngl/Camera.h>
 #include <ngl/Vector.h>
 #include <ngl/Obj.h>
@@ -28,7 +29,14 @@ public:
  /// @brief method to get Goal position
  ngl::Vector getPos(){return m_pos;}
 
+ /// @brief method to set Goal position
+ void setPos(ngl::Vector _pos){m_pos = _pos;}
+
  void updatePosition();
+
+ void resetPosition();
+
+
 
 
 
@@ -39,6 +47,7 @@ private:
 
     /// @brief the position of the Rock
     ngl::Vector m_pos;
+
 
 
     float m_curvePoint;

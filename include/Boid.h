@@ -5,6 +5,7 @@
 #include <ngl/Vector.h>
 #include <ngl/Obj.h>
 #include <ngl/TransformStack.h>
+#include "Goal.h"
 //#include "BoidManager.h"
 //#include "Predator.h"
 
@@ -26,24 +27,30 @@ public:
  /// @param _pos the position of the rock
  /// @brief _vel the velocity of the rock
  /// @param _fname the name of mesh to load
- Boid(
-       const ngl::Vector &_pos,
-       const ngl::Vector &_vel,
-       ngl::Obj *_mesh
-       );
+    Boid(
+        const ngl::Vector &_pos,
+        const ngl::Vector &_vel,
+        int _goalID,
+        ngl::Obj *_mesh
+      );
 
 //~Boid();
+
+
 
  void loadMatricesToShader(
                             ngl::TransformStack &_tx,
                             ngl::Camera *_cam
                           )const;
 
-
+ /*
  void loadMatricesToColourShader(
                                  ngl::TransformStack &_tx,
                                  ngl::Camera *_cam
                                )const;
+
+
+*/
 
  /// @brief draw method
  /// @brief pass in the TransformStack defined in GLWindow for the shader
@@ -74,6 +81,11 @@ ngl::Vector Alignment(std::vector <Boid> m_boids);
 
 ngl::Vector GoalInfluence(std::vector <Boid> m_boids, ngl::Vector _goalPos);
 
+
+bool checkCollisions();
+
+ngl::Vector ObAvoid();
+
 //ngl::Vector Flee(std::vector <Predator> m_predators);
 
 //ngl::Vector Hunt(std::vector <Boid> m_boids);
@@ -85,6 +97,8 @@ ngl::Vector m_tar;
 /// @brief pass in the TransformStack for the shader (should have all the tx needed)
 ngl::Vector BoundingBox(std::vector <Boid> m_boids);*/
 
+
+
 /// @brief the seperation affect distance
 double m_sep;
 
@@ -94,7 +108,9 @@ double m_coh;
 /// @brief the seperation affect distance
 double m_ali;
 
-//float m_mass;
+/// @brief the goal influence value
+double m_goalInf;
+
 /// @brief float for the maximum force of the boid
 double m_maxF;
 
@@ -104,7 +120,12 @@ double m_maxS;
 /// @brief float for the maximum speed of the boid
 double m_mass;
 
-/// @brief the position of the Rock
+
+int getGoalID(){return m_goalID;}
+
+
+
+/// @brief the position of the boid
 ngl::Vector m_pos;
 /// @brief the velocity of the boid
 ngl::Vector m_vel;
@@ -112,6 +133,8 @@ ngl::Vector m_vel;
 ngl::Vector m_acc;
 
 private :
+
+int m_goalID;
 
 float m_Yrot;
 

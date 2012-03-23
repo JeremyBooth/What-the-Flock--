@@ -33,26 +33,28 @@ Predator::Predator(
 }
 
 void Predator::loadMatricesToShader(
-                                     ngl::TransformStack &_tx,
-                                     ngl::Camera *_cam
-                                   ) const
+        ngl::TransformStack &_tx,
+        ngl::Camera *_cam
+      ) const
 {
-  ngl::ShaderLib *shader=ngl::ShaderLib::instance();
+    ngl::ShaderLib *shader=ngl::ShaderLib::instance();
 
-  ngl::Matrix MV;
-  ngl::Matrix MVP;
-  ngl::Mat3x3 normalMatrix;
-  ngl::Matrix M;
-  M=_tx.getCurrentTransform().getMatrix();
-  MV=_cam->getViewMatrix() * _tx.getCurrAndGlobal().getMatrix();
-  MVP=_cam->getProjectionMatrix() * MV;
-  normalMatrix=MV;
-  normalMatrix.inverse();
-  shader->setShaderParamFromMatrix("MV",MV);
-  shader->setShaderParamFromMatrix("MVP",MVP);
-  shader->setShaderParamFromMat3x3("normalMatrix",normalMatrix);
-  shader->setShaderParamFromMatrix("M",M);
+    ngl::Matrix MV;
+    ngl::Matrix MVP;
+    ngl::Mat3x3 normalMatrix;
+    ngl::Matrix M;
+    M=_tx.getCurrentTransform().getMatrix();
+    MV=_tx.getCurrAndGlobal().getMatrix() * _cam->getViewMatrix();
+    MVP=MV * _cam->getProjectionMatrix();
+    normalMatrix=MV;
+    normalMatrix.inverse();
+    shader->setShaderParamFromMatrix("MV",MV);
+    shader->setShaderParamFromMatrix("MVP",MVP);
+    shader->setShaderParamFromMat3x3("normalMatrix",normalMatrix);
+    shader->setShaderParamFromMatrix("M",M);
+
 }
+
 //----------------------------------------------------------------------------------------------------------------------
 
 void Predator::draw( ngl::TransformStack &_transformStack,
@@ -69,19 +71,20 @@ void Predator::draw( ngl::TransformStack &_transformStack,
     //Set the position for the Boid
    // _transformStack.getCurrentTransform().setPosition(m_pos);
     //Set the rotation of the Boid
+     shader->setShaderParam4f(_shader,0,1,0,1);
     _transformStack.setRotation(0,z_rot-90,x_rot);
-
-    //Load the shader
-   // _transformStack.loadGlobalAndCurrentMatrixToShader("Phong","ModelMatrix");
-    //apply the mesh
+    _transformStack.setScale(4,4,4);
     _transformStack.getCurrentTransform().setPosition(m_pos);
-   // _transformStack.setScale(m_radius,m_radius,m_radius);
+
+
+
     loadMatricesToShader(_transformStack,_cam);
 
-    ngl::Matrix MVP=_cam->getVPMatrix() * _transformStack.getCurrAndGlobal().getMatrix();
-    shader->setShaderParamFromMatrix("MVP",MVP);
+
+
 
     m_mesh->draw();
+
   }
 
   _transformStack.popTransform();

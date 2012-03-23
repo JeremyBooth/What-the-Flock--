@@ -1,35 +1,59 @@
 #include "BoidManager.h"
+#include "Goal.h"
 #include <iostream>
+#include <ngl/BezierCurve.h>
 #include <ngl/Random.h>
 #include <QFile>
 
 BoidManager::BoidManager(
         int _numBoids,
-        int _numPredators
+        int _numPredators,
+        std::vector <Goal *> _goals
         )
 {
     m_frame = 0;
     m_numBoids=_numBoids;
     m_numPredators=_numPredators;
+    m_numGoals=_goals.size();
     m_mesh=new ngl::Obj("models/boid.obj");
     //create it as a VAO
     m_mesh->createVAO(GL_STATIC_DRAW);
+    m_goals=_goals;
+
 
     ngl::Random *rng=ngl::Random::instance();
     rng->setSeed(time(NULL));
 
     ngl::Vector pos;
     ngl::Vector vel;
-    for(int i=0; i<m_numBoids; ++i)
+
+
+
+    //Creates boids, diving the flock equally amongst the goals, creating subflocks
+    for(int i=0; i<m_numGoals; ++i)
     {
-        // add a rock to the vector container
+        for(int j=0; j<(m_numBoids/m_numGoals); ++j)
+        {
+            // add a rock to the vector container
+            pos=rng->getRandomPoint(80,80,80);
+            vel=rng->getRandomPoint(3,3,3);
+            m_boids.push_back(Boid(pos,vel,i, m_mesh));
+
+            //now we move the next X position
+        }
+    }
+
+    for(int i=0; i<m_numPredators; ++i)
+    {
         pos=rng->getRandomPoint(80,80,80);
         vel=rng->getRandomPoint(3,3,3);
-        m_boids.push_back(Boid(pos,vel, m_mesh));
-        //m_predators.push_back(Boid(pos,vel,m_mesh));
-        //now we move the next X position
-
+        m_predators.push_back(Predator((20,20,20),vel,m_mesh));
     }
+
+
+
+
+
 
     //create a new ouput object
     m_outFile = new std::ofstream();
@@ -46,7 +70,7 @@ BoidManager::BoidManager(
     *m_outFile<<"NumBoids "<<_numBoids<<"\n";
 
 
-
+/*
     for(int i=0; i<m_numPredators; ++i)
     {
       pos=rng->getRandomPoint(80,80,80);
@@ -54,22 +78,30 @@ BoidManager::BoidManager(
       m_predators.push_back(Predator(pos,vel,m_mesh));
 
     }
+*/
 
 }
-void BoidManager::update(ngl::Vector _goalPos)
+void BoidManager::update()
 {
-
-  *m_outFile<<"Frame "<<m_frame<<"\n";
+ // *m_outFile<<"Frame "<<m_frame<<"\n";
   for(int i=0; i<m_numBoids; ++i)
   {
-      m_boids[i].update(m_boids, _goalPos);
-      *m_outFile<<"B"<<i<<" "<<m_boids[i].getPos().m_x
-                        <<" "<<m_boids[i].getPos().m_y
-                        <<" "<<m_boids[i].getPos().m_z
-                        <<"\n";
+
+      m_boids[i].update(m_boids, m_goals[m_boids[i].getGoalID()]->getPos());
+     // *m_outFile<<"B"<<i<<" "<<m_boids[i].getPos().m_x
+      //                  <<" "<<m_boids[i].getPos().m_y
+       //                 <<" "<<m_boids[i].getPos().m_z
+        //                <<"\n";
+  }
+  for(int i=0; i<m_numPredators; ++i)
+  {
+      //m_predators[i].update(m_boids);
   }
   ++m_frame;
 }
+
+
+
 
 //----------------------------------------------------------------------------------------------------------------------
 void BoidManager::draw(ngl::TransformStack &_tx, ngl::Camera *_cam,
@@ -83,12 +115,11 @@ void BoidManager::draw(ngl::TransformStack &_tx, ngl::Camera *_cam,
     }
 
     for(int i=0; i<m_numPredators; ++i)
-    {
-      //std::cout<<m_numPredators<<std::endl;
-      m_predators[i].update(m_boids);
+   {
+      std::cout<<m_numPredators<<std::endl;
       m_predators[i].draw(_tx, _cam, _shader1);
-      //std::cout<<m_predators.size()<<std::endl;
-    }
+      std::cout<<m_predators.size()<<std::endl;
+   }
 
 }
 
@@ -132,7 +163,7 @@ void BoidManager::addBoid()
   pos=rng->getRandomPoint();
   vel=rng->getRandomPoint();
   // add the spheres to the end of the particle list
-  m_boids.push_back(Boid(pos,vel, m_mesh));
+  m_boids.push_back(Boid(pos,vel, 0, m_mesh));
   ++m_numBoids;
   //std::cout<<m_numBoids;
   //int new_numBoids;
@@ -210,6 +241,18 @@ void BoidManager::setAliDist(double m_ali)
         m_boids[i].m_ali = m_ali;
     }
 }
+
+void BoidManager::setGoalInf(double _goalInf)
+{
+  /*In this function i update the alignment distance of the boids with the new user input.*/
+
+    for(int i=0; i<m_numBoids; ++i)
+    {
+        m_boids[i].m_goalInf = _goalInf;
+    }
+}
+
+
 
 //----------------------------------------------------------------------------------------------------------------------
 /*void BoidManager::addPredator()

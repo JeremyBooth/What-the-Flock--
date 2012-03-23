@@ -1,6 +1,8 @@
 #ifndef __GL_WINDOW_H__
 #define __GL_WINDOW_H__
 #include <ngl/BBox.h>
+#include <ngl/Text.h>
+#include <QString>
 #include "ngl/Camera.h"
 #include "ngl/Colour.h"
 #include "ngl/SpotLight.h"
@@ -43,9 +45,16 @@ public :
   ~GLWindow();
 
   //----------------------------------------------------------------------------------------------------------------------
-/// @brief toggle the Animation of the lights called from main window
+/// @brief toggle the Animation of the boids called from main window
   //----------------------------------------------------------------------------------------------------------------------
-inline void toggleAnimation(){m_animate^=true;}
+//inline void toggleBoidAnimation(){m_animateBoids^=true;}
+//----------------------------------------------------------------------------------------------------------------------
+/// @brief toggle the Animation of the goal called from main window
+//----------------------------------------------------------------------------------------------------------------------
+//inline void toggleGoalAnimation(){m_animateGoal^=true;}
+
+
+
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method called from main window for keyPress
   //----------------------------------------------------------------------------------------------------------------------
@@ -73,9 +82,20 @@ inline void toggleAnimation(){m_animate^=true;}
 
         /// @brief a slot to toggle wireframe mode
         /// @param [in] _mode the mode passed from toggle button
-        void toggleAnimation(
+        void toggleBoidAnimation(
                              bool _mode
                              );
+
+        /// @brief a slot to toggle wireframe mode
+        /// @param [in] _mode the mode passed from toggle button
+        void toggleGoalAnimation(
+                             bool _mode
+                             );
+
+        void toggleRecord(
+                             bool _mode
+                             );
+
 
         /// @brief a slot to change the mass of the boid
         /// @param [in] _m the mode passed from corresponding spin box
@@ -112,17 +132,41 @@ inline void toggleAnimation(){m_animate^=true;}
         void setAliDist(
                          double _m
                          );
+
+        /// @brief a slot change slider value for the goal influence
+        /// @param [in] _m the mode passed from corresponding slider
+        void setGoalInf(
+                        int _m
+                       );
+
         /// @brief a slot to remove a boid from the m_boids array when the button is pressed
         void removeBoid();
 
         /// @brief a slot to add a boid from the m_boids array when the button is pressed
         void addBoid();
 
+        /// @brief a slot to reset goals back to beginning of curve
+        void resetGoals();
+
 
 private :
-  /// @brief flag to indicate if animation is active or not
+
+  /// @brief the number of curves
+  //-----------------------------------------------------------------------------------------------------------------------
+  int m_numGoals;
+
+  /// @brief flag to indicate if boid animation is active or not
   //----------------------------------------------------------------------------------------------------------------------
-  bool m_animate;
+  bool m_animateBoids;
+
+  /// @brief flag to indicate if goal animation is active or not
+  //----------------------------------------------------------------------------------------------------------------------
+  bool m_animateGoal;
+
+  /// @brief flag to indicate if recording or not
+  //----------------------------------------------------------------------------------------------------------------------
+  bool m_record;
+
 
   /// @brief m_wireframe mode
   //----------------------------------------------------------------------------------------------------------------------
@@ -152,6 +196,14 @@ private :
   //----------------------------------------------------------------------------------------------------------------------
   double m_ali;
   //----------------------------------------------------------------------------------------------------------------------
+  /// @brief  goal influence value
+  //----------------------------------------------------------------------------------------------------------------------
+  double m_goalInf;
+
+
+
+
+  //----------------------------------------------------------------------------------------------------------------------
   /// @brief a timer triggered by the startTimer call in the ctor
   //----------------------------------------------------------------------------------------------------------------------
   int m_animationTimer;
@@ -163,7 +215,7 @@ private :
 
 
 
-
+  ngl::Text *m_text;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief used to store the x rotation mouse value
@@ -233,13 +285,16 @@ private :
   int m_numpredators;
 
 protected:
-
+/*
   void loadMatricesToShader(
                              ngl::TransformStack &_tx
                             );
   void loadMatricesToColourShader(
                                    ngl::TransformStack &_tx
                                  );
+
+*/
+
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  The following methods must be implimented in the sub class
   /// this is called when the window is created

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>720</width>
+    <height>457</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,58 +15,14 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="s_mainwindowgridlayout">
-    <item row="1" column="1">
-     <widget class="QGroupBox" name="s_drawGB">
-      <property name="title">
-       <string>Draw</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="2" column="0">
-        <widget class="QCheckBox" name="m_wireframe">
-         <property name="text">
-          <string>Wireframe</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="m_addBoid">
-         <property name="text">
-          <string>Add Boid</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="m_removeBoid">
-         <property name="text">
-          <string>Remove Boid</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="m_animate">
-         <property name="text">
-          <string>Play/Pause</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
+    <item row="0" column="2">
+     <widget class="QGroupBox" name="s_transGB">
+      <property name="maximumSize">
        <size>
-        <width>40</width>
-        <height>20</height>
+        <width>300</width>
+        <height>300</height>
        </size>
       </property>
-     </spacer>
-    </item>
-    <item row="0" column="1">
-     <widget class="QGroupBox" name="s_transGB">
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
@@ -74,14 +30,87 @@
        <string/>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="1">
+       <item row="1" column="1">
         <widget class="QLabel" name="m_MassLabel">
          <property name="text">
-          <string>Mass</string>
+          <string>Mass ☢</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
+       <item row="3" column="1">
+        <widget class="QLabel" name="m_MaxSpeedLabel">
+         <property name="text">
+          <string>Max Speed ➳</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="4">
+        <widget class="QDoubleSpinBox" name="m_force">
+         <property name="minimum">
+          <double>0.100000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLabel" name="m_MaxForceLabel">
+         <property name="text">
+          <string>Max Force ╄</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="4">
+        <widget class="QDoubleSpinBox" name="m_seperation">
+         <property name="value">
+          <double>8.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="4">
+        <widget class="QDoubleSpinBox" name="m_cohesion">
+         <property name="value">
+          <double>40.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="4">
+        <widget class="QDoubleSpinBox" name="m_alignment">
+         <property name="value">
+          <double>8.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Seperation ✖ </string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Cohesion  ❤ </string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Alignment ↗</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="4">
+        <widget class="QDoubleSpinBox" name="m_speed">
+         <property name="minimum">
+          <double>0.300000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
         <widget class="QDoubleSpinBox" name="m_mass">
          <property name="minimum">
           <double>18.000000000000000</double>
@@ -89,75 +118,139 @@
          <property name="maximum">
           <double>30.000000000000000</double>
          </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+         <property name="value">
+          <double>18.000000000000000</double>
+         </property>
         </widget>
        </item>
-       <item row="1" column="2">
-        <widget class="QDoubleSpinBox" name="m_speed">
+       <item row="8" column="1">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Goal Influence</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="4">
+        <widget class="QSlider" name="m_goalInfluence">
          <property name="minimum">
-          <double>0.100000000000000</double>
+          <number>0</number>
          </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="m_MaxSpeedLabel">
-         <property name="text">
-          <string>Max Speed</string>
+         <property name="maximum">
+          <number>200</number>
          </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QDoubleSpinBox" name="m_force">
-         <property name="minimum">
-          <double>0.100000000000000</double>
+         <property name="singleStep">
+          <number>1</number>
          </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="m_MaxForceLabel">
-         <property name="text">
-          <string>Max Force</string>
+         <property name="pageStep">
+          <number>10</number>
          </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QDoubleSpinBox" name="m_seperation">
          <property name="value">
-          <double>8.000000000000000</double>
+          <number>0</number>
+         </property>
+         <property name="sliderPosition">
+          <number>0</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="4" column="2">
-        <widget class="QDoubleSpinBox" name="m_cohesion">
-         <property name="value">
-          <double>40.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="2">
-        <widget class="QDoubleSpinBox" name="m_alignment">
-         <property name="value">
-          <double>8.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLabel" name="label">
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0" rowspan="3">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>20</number>
+      </property>
+      <property name="bottomMargin">
+       <number>20</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="m_animateBoids">
+        <property name="text">
+         <string>Animate Boids</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="m_animateGoal">
+        <property name="text">
+         <string>Animate Goals</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="m_resetGoals">
+        <property name="text">
+         <string>◄ ResetGoals</string>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="m_record">
+        <property name="text">
+         <string>●</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="2" rowspan="2">
+     <widget class="QGroupBox" name="s_drawGB">
+      <property name="maximumSize">
+       <size>
+        <width>300</width>
+        <height>300</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Draw</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="2" column="0">
+        <widget class="QCheckBox" name="m_wireframe">
          <property name="text">
-          <string>Seperation</string>
+          <string>Wireframe ▦</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QLabel" name="label_2">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="m_addBoid">
          <property name="text">
-          <string>Cohesion</string>
+          <string>Add Boid ✚</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
-        <widget class="QLabel" name="label_3">
+       <item row="1" column="0">
+        <widget class="QPushButton" name="m_removeBoid">
          <property name="text">
-          <string>Alignment</string>
+          <string>Remove Boid ☠</string>
          </property>
         </widget>
        </item>
@@ -171,7 +264,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>720</width>
      <height>23</height>
     </rect>
    </property>
